@@ -13,8 +13,6 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
 
 import java.io.IOException;
 import java.util.HashMap;
@@ -23,9 +21,15 @@ import java.util.HashMap;
 @WebServlet(name = "NewMatch", value = "/new-match")
 public class NewMatchController extends HttpServlet {
     private HashMap<String, MatchModel> storage;
+    private PlayerRepository playerRepository;
+    private MatchRepository matchRepository;
     @Override
     public void init(ServletConfig config) {
         storage = (HashMap<String, MatchModel>) config.getServletContext().getAttribute("storage");
+        playerRepository = (PlayerRepository) config.getServletContext().getAttribute("playerRepository");
+        matchRepository = (MatchRepository) config.getServletContext().getAttribute("matchRepository");
+        playerRepository.addPlayerToH2();
+        matchRepository.addMatchToTableScoreBoard();
     }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -37,31 +41,18 @@ public class NewMatchController extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String player1Name = req.getParameter("Player1");
         String player2Name = req.getParameter("Player2");
-
-        Configuration configuration = new Configuration();
-        configuration.configure("hibernate.cfg.xml");
-        configuration.addAnnotatedClass(MatchRepository.class)
-                .addAnnotatedClass(PlayerModel.class);
-        SessionFactory sessionFactory = configuration.buildSessionFactory();
-        PlayerRepository playerRepository = new PlayerRepository(sessionFactory);
-        MatchRepository matchRepository = new MatchRepository(sessionFactory);
-        playerRepository.addPlayerToH2();
-        matchRepository.addMatchToTableScoreBoard();
-
-        //Проверить есть ли игроки с таким именем в БД -> если нет -> создаем
-
         PlayerModel player1;
         PlayerModel player2;
         if (playerRepository.getPlayerByName(player1Name).isEmpty()) {
             player1 = new PlayerModel(player1Name, new GameScore());
-            player1.setId(11);
+            playerRepository.savePlayer(player1);
         } else {
             player1 = playerRepository.getPlayerByName(player1Name).get();
             player1.setGameScore(new GameScore());
         }
         if (playerRepository.getPlayerByName(player2Name).isEmpty()) {
             player2 = new PlayerModel(player2Name, new GameScore());
-            player2.setId(12);
+            playerRepository.savePlayer(player2);
         } else {
             player2 = playerRepository.getPlayerByName(player2Name).get();
             player2.setGameScore(new GameScore());

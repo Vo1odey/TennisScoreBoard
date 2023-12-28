@@ -10,7 +10,7 @@
   <body>
     <h1 id="heading">Tennis Score</h1>
     <br />
-    <form action="new-match" method="post">
+    <form id="begin" action="new-match" method="post">
       <table id="NewMatchTable">
         <tr>
           <td>
@@ -27,7 +27,7 @@
       </table>
       <br />
       <br />
-      <input type="submit" id="create" />
+      <input type="submit" id="create" value="Begin" />
     </form>
   </body>
 </html>

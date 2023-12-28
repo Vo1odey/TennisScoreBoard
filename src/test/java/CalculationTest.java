@@ -1,4 +1,5 @@
 import com.dragunov.tennisscoreboard.dto.GameScore;
+import com.dragunov.tennisscoreboard.models.MatchModel;
 import com.dragunov.tennisscoreboard.models.PlayerModel;
 import com.dragunov.tennisscoreboard.repositories.MatchRepository;
 import com.dragunov.tennisscoreboard.repositories.PlayerRepository;
@@ -8,6 +9,8 @@ import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import java.util.List;
 
 /*
 Если игрок 1 выигрывает очко при счёте 40-40, гейм не заканчивается
@@ -61,11 +64,9 @@ public class CalculationTest {
         MatchRepository matchRepository = new MatchRepository(sessionFactory);
         playerRepository.addPlayerToH2();
         matchRepository.addMatchToTableScoreBoard();
-
-        int i = 1;
-        while (i <= 10) {
-            System.out.println(matchRepository.getMatch(i));
-            i++;
+        List<MatchModel> matches = matchRepository.getMatches();
+        for (MatchModel matchModel:matches) {
+            System.out.println(matchModel);
         }
     }
     @Test

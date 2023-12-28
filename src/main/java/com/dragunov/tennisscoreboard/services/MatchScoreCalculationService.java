@@ -77,14 +77,14 @@ public class MatchScoreCalculationService {
             }
         }
     }
-    private boolean isSixPoint(GameScore player) {
-        return (int) player.getPoint().getValue() >= 6;
+    private boolean isSevenPoint(GameScore player) {
+        return (int) player.getPoint().getValue() >= 7;
     }
     private boolean isGapToPoint(GameScore player1, GameScore player2) {
         int p1point = (int) player1.getPoint().getValue();
         int p2point = (int) player2.getPoint().getValue();
         return (Math.abs(p1point - p2point) >= Math.abs(2))
-                && (isSixPoint(player1) || isSixPoint(player2));
+                && (isSevenPoint(player1) || isSevenPoint(player2));
     }
     private void addPointToTieBreak(GameScore player) {
         Points[] values = Points.values();

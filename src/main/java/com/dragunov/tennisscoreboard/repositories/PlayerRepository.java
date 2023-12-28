@@ -1,6 +1,7 @@
 package com.dragunov.tennisscoreboard.repositories;
 
 import com.dragunov.tennisscoreboard.dto.GameScore;
+import com.dragunov.tennisscoreboard.models.MatchModel;
 import com.dragunov.tennisscoreboard.models.PlayerModel;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -18,31 +19,22 @@ public class PlayerRepository {
     }
 
     public void addPlayerToH2() {
+        List<PlayerModel> players = new ArrayList<>();
+        players.add(new PlayerModel("Bob", new GameScore()));
+        players.add(new PlayerModel("Smith", new GameScore()));
+        players.add(new PlayerModel("Kelli", new GameScore()));
+        players.add(new PlayerModel("Bred", new GameScore()));
+        players.add(new PlayerModel("Fedor", new GameScore()));
+        players.add(new PlayerModel("Maria", new GameScore()));
+        players.add(new PlayerModel("Katy", new GameScore()));
+        players.add(new PlayerModel("Helen", new GameScore()));
+        players.add(new PlayerModel("Derek", new GameScore()));
+        players.add(new PlayerModel("Kenny", new GameScore()));
         try (Session session = sessionFactory.openSession()) {
-            PlayerModel player1 = new PlayerModel("Bob", new GameScore());
-            PlayerModel player2 = new PlayerModel("Smith", new GameScore());
-            PlayerModel player3 = new PlayerModel("Kelli", new GameScore());
-            PlayerModel player4 = new PlayerModel("Bred", new GameScore());
-            PlayerModel player5 = new PlayerModel("Fedor", new GameScore());
-            PlayerModel player6 = new PlayerModel("Maria", new GameScore());
-            PlayerModel player7 = new PlayerModel("Katy", new GameScore());
-            PlayerModel player8 = new PlayerModel("Helen", new GameScore());
-            PlayerModel player9 = new PlayerModel("Derek", new GameScore());
-            PlayerModel player10 = new PlayerModel("Kenny", new GameScore());
-
             session.beginTransaction();
-
-            session.persist(player1);
-            session.persist(player2);
-            session.persist(player3);
-            session.persist(player4);
-            session.persist(player5);
-            session.persist(player6);
-            session.persist(player7);
-            session.persist(player8);
-            session.persist(player9);
-            session.persist(player10);
-
+            for (PlayerModel player:players) {
+                session.persist(player);
+            }
             session.getTransaction().commit();
         }
     }
@@ -51,9 +43,7 @@ public class PlayerRepository {
         try (Session session = sessionFactory.openSession()) {
             PlayerModel player;
             session.beginTransaction();
-
             player = session.get(PlayerModel.class, id);
-
             session.getTransaction().commit();
             return Optional.ofNullable(player);
         }
@@ -76,5 +66,13 @@ public class PlayerRepository {
             return Optional.ofNullable(query.uniqueResult());
         }
     }
+    public void savePlayer(PlayerModel player){
+        try (Session session = sessionFactory.openSession()) {
+            session.beginTransaction();
+            session.persist(player);
+            session.getTransaction().commit();
+        }
+    }
+
 }
 

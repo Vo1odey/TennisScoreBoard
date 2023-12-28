@@ -10,43 +10,79 @@
   height: 100px;
   width: 90%;
   line-height: 100px;
-  background: #2172b4;
-  color: antiquewhite;
+  background: #2172b4aa;
+  color: #195688;
   text-align: center;
-  border: 3px solid rgb(0, 0, 0);
+  border: 3px solid rgb(154, 154, 154);
+}
+#headColor {
+  color: #58c5ff;
 }
 
-table {
+#Score {
+  height: 50px;
+  max-width: 80%;
+  width: 100%;
+  text-align: center;
+  background: #2172b4;
+  margin: 0 auto;
+  line-height: 50px;
+  border: 2px solid rgb(154, 154, 154);
+  border-collapse: collapse;
+}
+
+#NewMatchTable {
+  height: 110px;
+  width: 80%;
+  margin: 0 auto;
+  background: #2172b4;
+  text-align: center;
+}
+
+#winner {
   height: 50px;
   width: 80%;
   text-align: center;
   background: #2172b4;
   margin: 0 auto;
   line-height: 50px;
-  border: 3px solid rgb(0, 0, 0);
+  border: 2px solid rgb(154, 154, 154);
   border-collapse: collapse;
+}
+
+#colorWin {
+  color: #58c5ff;
 }
 
 th,
 td {
-  border: 3px solid rgb(0, 0, 0);
-  color: antiquewhite;
+  border: 2px solid rgb(154, 154, 154);
+  color: rgb(255, 255, 255);
+}
+
+th {
+  background-color: #195688;
 }
 
 button {
   margin-top: 20px;
   height: 50px;
   width: 120px;
-  background-color: #2172b4;
+  background-color: #195688;
   color: antiquewhite;
+}
+
+#pName {
+  background-color: #195688;
+  color: #58c5ff;
 }
 
 #p1form {
   margin-top: 20px;
   height: 50px;
   width: 120px;
-  background-color: #2172b4;
-  color: antiquewhite;
+  background-color: #195688;
+  color: #58c5ff;
   float: left;
   position: relative;
   left: 60px;
@@ -57,8 +93,8 @@ button {
   margin-top: 20px;
   height: 50px;
   width: 120px;
-  background-color: #2172b4;
-  color: antiquewhite;
+  background-color: #195688;
+  color: #58c5ff;
   float: right;
   position: relative;
   right: 60px;
@@ -69,10 +105,11 @@ button {
   margin-top: 20px;
   height: 50px;
   width: 120px;
-  background-color: #2172b4;
-  color: antiquewhite;
+  background-color: #195688;
+  color: #58c5ff;
   position: relative;
   left: 46%;
+  font-size: 26px;
 }
 
 #p1 {
@@ -85,12 +122,4 @@ button {
   float: right;
   position: relative;
   right: 60px;
-}
-
-#NewMatchTable {
-  width: 80%;
-  th,
-  td {
-    width: 50%;
-  }
 }
