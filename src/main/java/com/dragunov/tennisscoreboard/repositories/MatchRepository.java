@@ -2,8 +2,10 @@ package com.dragunov.tennisscoreboard.repositories;
 
 import com.dragunov.tennisscoreboard.models.MatchModel;
 import com.dragunov.tennisscoreboard.models.PlayerModel;
+import jakarta.persistence.NoResultException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
+import org.hibernate.query.Query;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,6 +70,16 @@ public class MatchRepository {
             session.beginTransaction();
             session.merge(match);
             session.getTransaction().commit();
+        }
+    }
+
+    public List<MatchModel> getMatchByPlayerName(String name) {
+        try (Session session = sessionFactory.openSession()) {
+            Query<MatchModel> query = session.createQuery("FROM MatchModel WHERE Player1.name = :name OR Player2.name = :name");
+            query.setParameter("name", name);
+            return query.getResultList();
+        } catch (NoResultException e) {
+            return new ArrayList<>();
         }
     }
 }

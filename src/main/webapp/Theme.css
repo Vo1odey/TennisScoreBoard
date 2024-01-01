@@ -13,7 +13,8 @@
   background: #2172b4aa;
   color: #195688;
   text-align: center;
-  border: 3px solid rgb(154, 154, 154);
+  border: 3px solid rgb(15, 51, 97);
+  border-radius: 5px;
 }
 #headColor {
   color: #58c5ff;
@@ -112,6 +113,33 @@ button {
   font-size: 26px;
 }
 
+#formLeft {
+  float: left;
+  margin-left: 40px;
+}
+#newgame {
+  height: 50px;
+  width: 200px;
+  background-color: #195688;
+  color: #58c5ff;
+  position: relative;
+  left: 52%;
+  font-size: 26px;
+}
+#formRight {
+  float: right;
+  margin-right: 40px;
+}
+#matches {
+  height: 50px;
+  width: 200px;
+  background-color: #195688;
+  color: #58c5ff;
+  position: relative;
+  right: 52%;
+  font-size: 26px;
+}
+
 #p1 {
   float: left;
   position: relative;
@@ -123,3 +151,37 @@ button {
   position: relative;
   right: 60px;
 }
+#Search {
+  display: inline-block;
+}
+
+#ListMatchces {
+  margin: 0 auto;
+  border-collapse: collapse;
+  background-color: #2172b4;
+  height: 80px;
+  width: 80%;
+  text-align: center;
+}
+#but {
+  text-align: center;
+  height: 30px;
+  background-color: #195688;
+  color: #58c5ff;
+}
+#all {
+  width: 50%;
+  text-align: right;
+  position: relative;
+  right: 70px;
+}
+#back {
+  float: left;
+  margin-left: 70px;
+  height: 34px;
+  width: 130px;
+  background-color: #195688;
+  color: #58c5ff;
+  font-size: 22px;
+}
+

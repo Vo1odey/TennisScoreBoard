@@ -3,6 +3,7 @@ import com.dragunov.tennisscoreboard.models.MatchModel;
 import com.dragunov.tennisscoreboard.models.PlayerModel;
 import com.dragunov.tennisscoreboard.repositories.MatchRepository;
 import com.dragunov.tennisscoreboard.repositories.PlayerRepository;
+import com.dragunov.tennisscoreboard.services.FinishedMatchesPersistenceService;
 import com.dragunov.tennisscoreboard.services.MatchScoreCalculationService;
 import com.dragunov.tennisscoreboard.services.Points;
 import org.hibernate.SessionFactory;
@@ -64,14 +65,15 @@ public class CalculationTest {
         MatchRepository matchRepository = new MatchRepository(sessionFactory);
         playerRepository.addPlayerToH2();
         matchRepository.addMatchToTableScoreBoard();
-        List<MatchModel> matches = matchRepository.getMatches();
-        for (MatchModel matchModel:matches) {
-            System.out.println(matchModel);
+        FinishedMatchesPersistenceService finishedMatchesPersistenceService = new FinishedMatchesPersistenceService();
+        List<MatchModel> matches = finishedMatchesPersistenceService.MatchesInPageByPlayerName(matchRepository, 1, "Kelli");
+        for (MatchModel match: matches) {
+            System.out.println(match);
         }
     }
     @Test
     public void ScorePlayer(){
-        PlayerModel playerModel = new PlayerModel("Bob", new GameScore());
-        System.out.println(playerModel.getId());
+
+
     }
 }

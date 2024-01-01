@@ -6,6 +6,7 @@ import com.dragunov.tennisscoreboard.models.MatchModel;
 import com.dragunov.tennisscoreboard.models.PlayerModel;
 import com.dragunov.tennisscoreboard.repositories.MatchRepository;
 import com.dragunov.tennisscoreboard.repositories.PlayerRepository;
+import com.dragunov.tennisscoreboard.services.OngoingMatchesService;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
@@ -20,12 +21,12 @@ import java.util.HashMap;
 
 @WebServlet(name = "NewMatch", value = "/new-match")
 public class NewMatchController extends HttpServlet {
-    private HashMap<String, MatchModel> storage;
+    private OngoingMatchesService ongoingMatchesService;
     private PlayerRepository playerRepository;
     private MatchRepository matchRepository;
     @Override
     public void init(ServletConfig config) {
-        storage = (HashMap<String, MatchModel>) config.getServletContext().getAttribute("storage");
+        ongoingMatchesService = (OngoingMatchesService) config.getServletContext().getAttribute("ongoingMatchesService");
         playerRepository = (PlayerRepository) config.getServletContext().getAttribute("playerRepository");
         matchRepository = (MatchRepository) config.getServletContext().getAttribute("matchRepository");
         playerRepository.addPlayerToH2();
@@ -59,7 +60,7 @@ public class NewMatchController extends HttpServlet {
         }
         MatchModel matchModel = new MatchModel(player1, player2);
         String matchId = player1.getName() + "And" + player2.getName();
-        storage.put(matchId, matchModel);
+        ongoingMatchesService.recordCurrentMatch(matchModel, matchId);
         resp.sendRedirect("/match-score?uuid="+matchId);
     }
 }

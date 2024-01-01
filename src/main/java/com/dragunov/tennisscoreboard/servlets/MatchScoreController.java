@@ -6,6 +6,7 @@ import com.dragunov.tennisscoreboard.repositories.MatchRepository;
 import com.dragunov.tennisscoreboard.repositories.PlayerRepository;
 import com.dragunov.tennisscoreboard.services.FinishedMatchesPersistenceService;
 import com.dragunov.tennisscoreboard.services.MatchScoreCalculationService;
+import com.dragunov.tennisscoreboard.services.OngoingMatchesService;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
@@ -19,13 +20,13 @@ import java.util.HashMap;
 
 @WebServlet(name = "MatchScore", value = "/match-score/*")
 public class MatchScoreController extends HttpServlet {
-    private HashMap<String, MatchModel> storage;
+    private OngoingMatchesService ongoingMatchesService;
     private PlayerRepository playerRepository;
     private MatchRepository matchRepository;
 
     @Override
     public void init(ServletConfig config) {
-        storage = (HashMap<String, MatchModel>) config.getServletContext().getAttribute("storage");
+        ongoingMatchesService = (OngoingMatchesService) config.getServletContext().getAttribute("ongoingMatchesService");
         playerRepository = (PlayerRepository) config.getServletContext().getAttribute("playerRepository");
         matchRepository = (MatchRepository) config.getServletContext().getAttribute("matchRepository");
     }
@@ -34,7 +35,7 @@ public class MatchScoreController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String matchId = req.getParameter("uuid");
 
-        MatchModel matchModel = storage.get(matchId);
+        MatchModel matchModel = ongoingMatchesService.getMatch(matchId);
         PlayerModel p1 = matchModel.getPlayer1();
         PlayerModel p2 = matchModel.getPlayer2();
 
@@ -49,7 +50,7 @@ public class MatchScoreController extends HttpServlet {
         String matchId = req.getParameter("uuid");
         String playerWin = req.getParameter("player_id");
         int playerWinId = Integer.parseInt(playerWin);
-        MatchModel matchModel = storage.get(matchId);
+        MatchModel matchModel = ongoingMatchesService.getMatch(matchId);
         PlayerModel p1 = matchModel.getPlayer1();
         PlayerModel p2 = matchModel.getPlayer2();
 
@@ -60,7 +61,8 @@ public class MatchScoreController extends HttpServlet {
             if (p1.getGameScore().getSet() == 2) {
                 req.setAttribute("player1", p1);
                 req.setAttribute("player2", p2);
-                finishedMatchesPersistenceService.saveFinishedMatch(matchRepository, p1, p2, storage, matchId);
+                req.setAttribute("matchRepository", matchRepository);
+                finishedMatchesPersistenceService.saveFinishedMatch(matchRepository, ongoingMatchesService, matchId);
                 RequestDispatcher dispatcher = req.getRequestDispatcher("/Winner.jsp");
                 dispatcher.forward(req, resp);
             } else {
@@ -72,7 +74,8 @@ public class MatchScoreController extends HttpServlet {
             if (p2.getGameScore().getSet() == 2) {
                 req.setAttribute("player1", p1);
                 req.setAttribute("player2", p2);
-                finishedMatchesPersistenceService.saveFinishedMatch(matchRepository, p1, p2, storage, matchId);
+                req.setAttribute("matchRepository", matchRepository);
+                finishedMatchesPersistenceService.saveFinishedMatch(matchRepository, ongoingMatchesService, matchId);
                 RequestDispatcher dispatcher = req.getRequestDispatcher("/Winner.jsp");
                 dispatcher.forward(req, resp);
             } else {

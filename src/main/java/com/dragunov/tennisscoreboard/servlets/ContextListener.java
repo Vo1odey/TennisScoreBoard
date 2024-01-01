@@ -4,6 +4,7 @@ import com.dragunov.tennisscoreboard.models.MatchModel;
 import com.dragunov.tennisscoreboard.models.PlayerModel;
 import com.dragunov.tennisscoreboard.repositories.MatchRepository;
 import com.dragunov.tennisscoreboard.repositories.PlayerRepository;
+import com.dragunov.tennisscoreboard.services.OngoingMatchesService;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletContextEvent;
 import jakarta.servlet.ServletContextListener;
@@ -20,8 +21,8 @@ public class ContextListener implements ServletContextListener {
     @Override
     public void contextInitialized(ServletContextEvent sce) {
         ServletContext context = sce.getServletContext();
-        HashMap<String, MatchModel> storage = new HashMap<>();
-        context.setAttribute("storage", storage);
+        OngoingMatchesService ongoingMatchesService = new OngoingMatchesService();
+        context.setAttribute("ongoingMatchesService", ongoingMatchesService);
         Configuration configuration = new Configuration();
         configuration.configure("hibernate.cfg.xml");
         configuration.addAnnotatedClass(MatchRepository.class)
