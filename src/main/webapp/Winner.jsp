@@ -1,11 +1,10 @@
 <%@ page import="com.dragunov.tennisscoreboard.models.PlayerModel" %>
-<%@ page import="com.dragunov.tennisscoreboard.services.FinishedMatchesPersistenceService" %>
-<%@ page import="com.dragunov.tennisscoreboard.repositories.MatchRepository" %>
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8" />
-  <link rel="stylesheet" href="Theme.css" />
+  <link rel="stylesheet" href="${pageContext.request.contextPath}/Theme.css" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Winner</title>
 </head>

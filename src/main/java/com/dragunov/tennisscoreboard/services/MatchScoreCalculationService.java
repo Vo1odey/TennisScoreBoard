@@ -10,17 +10,24 @@ public class MatchScoreCalculationService {
         return false;
     }
     private void addPoint(GameScore target, GameScore player2) {
+
         if (isAd(target, player2)) {
             if (target.isAdvantage()) {
                 target.setNextPoint(true);
             }
         }
+
         if (isAd(target, player2)){
-            target.setAdvantage(true);
-            target.setPoint(Points.AD);
-            player2.setPoint(Points.FORTY);
-            player2.setAdvantage(false);
+            if (player2.isAdvantage()){
+                player2.setAdvantage(false);
+                player2.setPoint(Points.FORTY);
+                return;
+            } else {
+                target.setAdvantage(true);
+                target.setPoint(Points.AD);
+            }
         }
+
         //switch?
         if (!isAd(target, player2)) {
             if (target.getPoint() == Points.ZERO) {
