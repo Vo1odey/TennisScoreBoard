@@ -56,11 +56,14 @@ public class MatchScoreController extends HttpServlet {
 
         MatchScoreCalculationService matchScoreCalculationService = new MatchScoreCalculationService();
         FinishedMatchesPersistenceService finishedMatchesPersistenceService = new FinishedMatchesPersistenceService();
+        String winner;
         if (p1.getId() == playerWinId){
             matchScoreCalculationService.play(p1.getGameScore(), p2.getGameScore());
             if (p1.getGameScore().getSet() == 2) {
+                winner = p1.getName();
                 req.setAttribute("player1", p1);
                 req.setAttribute("player2", p2);
+                req.setAttribute("winner", winner);
                 req.setAttribute("matchRepository", matchRepository);
                 finishedMatchesPersistenceService.saveFinishedMatch(matchRepository, ongoingMatchesService, matchId);
                 RequestDispatcher dispatcher = req.getRequestDispatcher("/Winner.jsp");
@@ -72,8 +75,10 @@ public class MatchScoreController extends HttpServlet {
         if (p2.getId() == playerWinId){
             matchScoreCalculationService.play(p2.getGameScore(), p1.getGameScore());
             if (p2.getGameScore().getSet() == 2) {
+                winner = p2.getName();
                 req.setAttribute("player1", p1);
                 req.setAttribute("player2", p2);
+                req.setAttribute("winner", winner);
                 req.setAttribute("matchRepository", matchRepository);
                 finishedMatchesPersistenceService.saveFinishedMatch(matchRepository, ongoingMatchesService, matchId);
                 RequestDispatcher dispatcher = req.getRequestDispatcher("/Winner.jsp");

@@ -1,4 +1,4 @@
-import com.dragunov.tennisscoreboard.dto.GameScore;
+import com.dragunov.tennisscoreboard.dto.gameScore;
 import com.dragunov.tennisscoreboard.models.MatchModel;
 import com.dragunov.tennisscoreboard.models.PlayerModel;
 import com.dragunov.tennisscoreboard.repositories.MatchRepository;
@@ -21,9 +21,9 @@ import java.util.List;
 
 public class CalculationTest {
     MatchScoreCalculationService calculation = new MatchScoreCalculationService();
-    GameScore kelli = new GameScore();
-    GameScore Bob = new GameScore();
-    GameScore Taylor = new GameScore();
+    gameScore kelli = new gameScore();
+    gameScore Bob = new gameScore();
+    gameScore Taylor = new gameScore();
 
     @Test
     public void gameIsNotOver() {

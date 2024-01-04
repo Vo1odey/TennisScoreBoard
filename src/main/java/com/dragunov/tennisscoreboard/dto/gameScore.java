@@ -10,16 +10,18 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class GameScore {
+public class gameScore {
 
     private Points point;
+    private int tieBreakPoint;
     private int game;
     private int set;
     private boolean advantage;
     private boolean nextPoint;
 
-    public GameScore(){
+    public gameScore(){
         point = Points.ZERO;
+        tieBreakPoint = 0;
         game = 0;
         set = 0;
         advantage = false;

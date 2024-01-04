@@ -1,6 +1,5 @@
 package com.dragunov.tennisscoreboard.models;
 
-import com.dragunov.tennisscoreboard.dto.GameScore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -17,11 +16,11 @@ public class PlayerModel {
     private String name;
 
     @Transient
-    private GameScore gameScore;
+    private com.dragunov.tennisscoreboard.dto.gameScore gameScore;
     public PlayerModel() {
     }
 
-    public PlayerModel(String name, GameScore gameScore) {
+    public PlayerModel(String name, com.dragunov.tennisscoreboard.dto.gameScore gameScore) {
         this.name = name;
         this.gameScore = gameScore;
     }

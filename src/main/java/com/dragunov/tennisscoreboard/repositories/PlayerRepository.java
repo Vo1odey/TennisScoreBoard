@@ -1,7 +1,6 @@
 package com.dragunov.tennisscoreboard.repositories;
 
-import com.dragunov.tennisscoreboard.dto.GameScore;
-import com.dragunov.tennisscoreboard.models.MatchModel;
+import com.dragunov.tennisscoreboard.dto.gameScore;
 import com.dragunov.tennisscoreboard.models.PlayerModel;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -20,16 +19,16 @@ public class PlayerRepository {
 
     public void addPlayerToH2() {
         List<PlayerModel> players = new ArrayList<>();
-        players.add(new PlayerModel("Bob", new GameScore()));
-        players.add(new PlayerModel("Smith", new GameScore()));
-        players.add(new PlayerModel("Kelli", new GameScore()));
-        players.add(new PlayerModel("Bred", new GameScore()));
-        players.add(new PlayerModel("Fedor", new GameScore()));
-        players.add(new PlayerModel("Maria", new GameScore()));
-        players.add(new PlayerModel("Katy", new GameScore()));
-        players.add(new PlayerModel("Helen", new GameScore()));
-        players.add(new PlayerModel("Derek", new GameScore()));
-        players.add(new PlayerModel("Kenny", new GameScore()));
+        players.add(new PlayerModel("Bob", new gameScore()));
+        players.add(new PlayerModel("Smith", new gameScore()));
+        players.add(new PlayerModel("Kelli", new gameScore()));
+        players.add(new PlayerModel("Bred", new gameScore()));
+        players.add(new PlayerModel("Fedor", new gameScore()));
+        players.add(new PlayerModel("Maria", new gameScore()));
+        players.add(new PlayerModel("Katy", new gameScore()));
+        players.add(new PlayerModel("Helen", new gameScore()));
+        players.add(new PlayerModel("Derek", new gameScore()));
+        players.add(new PlayerModel("Kenny", new gameScore()));
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             for (PlayerModel player:players) {
