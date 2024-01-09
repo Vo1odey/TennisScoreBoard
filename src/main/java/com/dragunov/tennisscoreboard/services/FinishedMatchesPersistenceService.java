@@ -3,8 +3,11 @@ package com.dragunov.tennisscoreboard.services;
 import com.dragunov.tennisscoreboard.models.MatchModel;
 import com.dragunov.tennisscoreboard.models.PlayerModel;
 import com.dragunov.tennisscoreboard.repositories.MatchRepository;
+import jakarta.persistence.TypedQuery;
+import jakarta.persistence.criteria.*;
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 
-import java.util.ArrayList;
 import java.util.List;
 
 
@@ -22,62 +25,67 @@ public class FinishedMatchesPersistenceService {
         }
         matchRepository.mergeMatch(matchModel);
     }
+    public List<MatchModel> usePaginationHibernate(SessionFactory sessionFactory, int page, String filter) {
+        try (Session session = sessionFactory.openSession()){
+            int pageSize = 5;
+            int firstResult;
+            if (page == 1) {
+                firstResult = 0;
+            } else {
+                firstResult = pageSize * (page - 1);
+            }
+            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+            CriteriaQuery<MatchModel> criteriaQuery = criteriaBuilder.createQuery(MatchModel.class);
+            Root<MatchModel> root = criteriaQuery.from(MatchModel.class);
 
-    public int pagination (MatchRepository matchRepository) {
-        final int COUNT = 5;
-        List<MatchModel> matches = matchRepository.getMatches();
-        int pages = (int) Math.ceil((double) matches.size() / COUNT);
-        if (pages == 0) return 1;
-        return pages;
-    }
-    public int paginationByFilter (List<MatchModel> filterMatches) {
-        //передаем заполненный лист с фильтром
-        final int COUNT = 5;
-        int pages = (int) Math.ceil((double) filterMatches.size() / COUNT);
-        if (pages == 0) return 1;
-        return pages;
-    }
-    public List<MatchModel> allMatchesInPage(MatchRepository matchRepository, int page) {
-        List<MatchModel> matchesInPage = new ArrayList<>();
-        int matchesOnThePage = 5;
-        int allPages = pagination(matchRepository);
-        int previousPage = page - 1;
-        int beginID;
-        int endID;
-        for (int pageNumber = 1; pageNumber <= allPages; pageNumber++) {
-            if (pageNumber == page) {
-                endID = matchesOnThePage * pageNumber;
-                beginID = endID - (endID - (matchesOnThePage * previousPage + 1));
-                while (beginID <= endID) {
-                    if (matchRepository.getMatch(beginID).isPresent()) {
-                        matchesInPage.add(matchRepository.getMatch(beginID).get());
-                    }
-                    beginID++;
-                }
-            }
+            // Создаем предикаты для фильтрации по имени игрока
+            Join<MatchModel, PlayerModel> player1Join = root.join("Player1");
+            Join<MatchModel, PlayerModel> player2Join = root.join("Player2");
+            Predicate player1NamePredicate = criteriaBuilder.like(player1Join.get("name"), "%" + filter + "%");
+            Predicate player2NamePredicate = criteriaBuilder.like(player2Join.get("name"), "%" + filter + "%");
+
+            // Создаем предикат, который объединяет предикаты по имени игрока
+            Predicate playerNamePredicate = criteriaBuilder.or(player1NamePredicate, player2NamePredicate);
+
+            // Добавляем предикат в запрос
+            criteriaQuery.where(playerNamePredicate);
+
+            CriteriaQuery<MatchModel> selectQuery = criteriaQuery.select(root);
+
+            TypedQuery<MatchModel> typedQuery = session.createQuery(selectQuery);
+            typedQuery.setFirstResult(firstResult);
+            typedQuery.setMaxResults(pageSize);
+
+            return typedQuery.getResultList();
         }
-        return matchesInPage;
     }
-    public List<MatchModel> MatchesInPageByPlayerName(MatchRepository matchRepository, int page, String filter) {
-        List<MatchModel> matchesInPage = new ArrayList<>();
-        int matchesOnThePage = 5;
-        int allPages = pagination(matchRepository);
-        int previousPage = page - 1;
-        int beginID;
-        int endID;
-        for (int pageNumber = 1; pageNumber <= allPages; pageNumber++) {
-            if (pageNumber == page) {
-                endID = matchesOnThePage * pageNumber;
-                beginID = endID - (endID - (matchesOnThePage * previousPage + 1));
-                while (beginID <= endID) {
-                    //if filter.isEmpty -> matchesInPage.add(matchRepository.getMatch(beginID).get());
-                    //else -> matchRepository.getMatchByPlayerName(filter);
-                    matchesInPage = matchRepository.getMatchByPlayerName(filter);
-                    beginID++;
-                }
-            }
+    public int quantityPages(SessionFactory sessionFactory, String filter) {
+        try (Session session = sessionFactory.openSession()){
+            CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
+            CriteriaQuery<Long> countQuery = criteriaBuilder.createQuery(Long.class);
+
+            Root<MatchModel> root = countQuery.from(MatchModel.class);
+
+            // Создаем предикаты для фильтрации по имени игрока
+            Join<MatchModel, PlayerModel> player1Join = root.join("Player1");
+            Join<MatchModel, PlayerModel> player2Join = root.join("Player2");
+            Predicate player1NamePredicate = criteriaBuilder.like(player1Join.get("name"), "%" + filter + "%");
+            Predicate player2NamePredicate = criteriaBuilder.like(player2Join.get("name"), "%" + filter + "%");
+
+            // Создаем предикат, который объединяет предикаты по имени игрока
+            Predicate playerNamePredicate = criteriaBuilder.or(player1NamePredicate, player2NamePredicate);
+
+            // Добавляем предикат в запрос
+            countQuery.where(playerNamePredicate);
+
+            countQuery.select(criteriaBuilder.count(root));
+
+            Long count = session.createQuery(countQuery).getSingleResult();
+
+            int pageSize = 5;
+
+            return (int) Math.ceil((double) count / pageSize);
         }
-        return matchesInPage;
     }
 }
 

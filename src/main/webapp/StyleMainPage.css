@@ -1,0 +1,35 @@
+* {
+    margin: 0;
+    padding: 0;
+}
+#heading {
+    margin: auto;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    height: 100px;
+    width: 90%;
+    line-height: 100px;
+    background: #2172b4aa;
+    color: #195688;
+    text-align: center;
+    border: 3px solid rgb(15, 51, 97);
+    border-radius: 5px;
+}
+#headColor {
+    color: #58c5ff;
+}
+#newMatch {
+    float: left;
+    margin-left: 440px;
+}
+#MatchList {
+    float: right;
+    margin-right: 440px;
+}
+.matches {
+    height: 50px;
+    width: 200px;
+    background-color: #195688;
+    color: #58c5ff;
+    font-size: 26px;
+}

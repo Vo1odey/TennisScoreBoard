@@ -40,7 +40,7 @@
 </table>
 <br />
 <div class="form-button">
-  <c:forEach var="i" begin="1" end="${requestScope.numberOfPages}" step="1">
+  <c:forEach var="i" begin="1" end="${requestScope.quantityOfPages}" step="1">
     <form class="pagination" action="" method="get">
       <input type="hidden" name="page" value="${i}">
       <input type="hidden" name="filter_by_player_name" value="${filter}">

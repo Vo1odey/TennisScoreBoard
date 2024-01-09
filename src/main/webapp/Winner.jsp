@@ -10,22 +10,22 @@
 <br />
 <table id="Score">
   <tr>
-    <th id="title"></th>
-    <th id="title"><h2 id="headColor">Set</h2></th>
-    <th id="title"><h2 id="headColor">Game</h2></th>
-    <th id="title"><h2 id="headColor">Point</h2></th>
+    <th></th>
+    <th><h2 class="headColor">Set</h2></th>
+    <th><h2 class="headColor">Game</h2></th>
+    <th><h2 class="headColor">Point</h2></th>
   </tr>
   <tr>
     <td class="pName"><h2>${player1.name}</h2></td>
-    <td><h2>${requestScope.player1.gameScore.set}</h2></td>
-    <td><h2>${requestScope.player1.gameScore.game}</h2></td>
-    <td><h2>${requestScope.player1.gameScore.point.getValue()}</h2></td>
+    <td><h2>${player1.gameScore.set}</h2></td>
+    <td><h2>${player1.gameScore.game}</h2></td>
+    <td><h2>${player1.gameScore.point.getValue()}</h2></td>
   </tr>
   <tr>
     <td class="pName"><h2>${player2.name}</h2></td>
-    <td><h2>${requestScope.player2.gameScore.set}</h2></td>
-    <td><h2>${requestScope.player2.gameScore.game}</h2></td>
-    <td><h2>${requestScope.player2.gameScore.point.getValue()}</h2></td>
+    <td><h2>${player2.gameScore.set}</h2></td>
+    <td><h2>${player2.gameScore.game}</h2></td>
+    <td><h2>${player2.gameScore.point.getValue()}</h2></td>
   </tr>
 </table>
 <br />
@@ -34,7 +34,7 @@
     <th><h1 id="colorWin">Is a Winner!</h1></th>
   </tr>
   <tr>
-    <td><h2>${requestScope.winner}</h2></td>
+    <td><h2>${winner}</h2></td>
   </tr>
 </table>
 <br />

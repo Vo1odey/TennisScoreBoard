@@ -1,0 +1,6 @@
+Jan 09, 2024 12:54:41 PM com.dragunov.tennisscoreboard.servlets.NewMatchController doPost
+WARNING: Validation names - success
+Jan 09, 2024 12:54:41 PM com.dragunov.tennisscoreboard.repositories.PlayerRepository getPlayerOrCreateHim
+WARNING: get player from database - success
+Jan 09, 2024 12:54:41 PM com.dragunov.tennisscoreboard.repositories.PlayerRepository getPlayerOrCreateHim
+WARNING: get player from database - success

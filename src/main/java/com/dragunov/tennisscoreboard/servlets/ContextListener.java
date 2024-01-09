@@ -4,6 +4,7 @@ import com.dragunov.tennisscoreboard.models.MatchModel;
 import com.dragunov.tennisscoreboard.models.PlayerModel;
 import com.dragunov.tennisscoreboard.repositories.MatchRepository;
 import com.dragunov.tennisscoreboard.repositories.PlayerRepository;
+import com.dragunov.tennisscoreboard.services.FinishedMatchesPersistenceService;
 import com.dragunov.tennisscoreboard.services.OngoingMatchesService;
 import jakarta.servlet.ServletContext;
 import jakarta.servlet.ServletContextEvent;
@@ -30,6 +31,9 @@ public class ContextListener implements ServletContextListener {
         SessionFactory sessionFactory = configuration.buildSessionFactory();
         PlayerRepository playerRepository = new PlayerRepository(sessionFactory);
         MatchRepository matchRepository = new MatchRepository(sessionFactory);
+        FinishedMatchesPersistenceService finishedMatchesPersistenceService = new FinishedMatchesPersistenceService();
+        context.setAttribute("finishedMatchesPersistenceService", finishedMatchesPersistenceService);
+        context.setAttribute("sessionFactory", sessionFactory);
         context.setAttribute("playerRepository", playerRepository);
         context.setAttribute("matchRepository", matchRepository);
     }

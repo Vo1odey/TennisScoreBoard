@@ -1,49 +1,46 @@
 package com.dragunov.tennisscoreboard.services;
 
-import com.dragunov.tennisscoreboard.dto.gameScore;
+import com.dragunov.tennisscoreboard.dto.GameScore;
 
 public class MatchScoreCalculationService {
 
-    private boolean isAd(gameScore target, gameScore player2){
+    private boolean isAd(GameScore target, GameScore player2){
         if (target.getPoint() == Points.FORTY && player2.getPoint() == Points.FORTY) return true;
+        //40:40
         if (target.getPoint() == Points.AD || player2.getPoint() == Points.AD) return true;
+        //Ad:40
         return false;
     }
-    private void addPoint(gameScore target, gameScore player2) {
-
+    private void addPoint(GameScore target, GameScore player2) {
         if (isAd(target, player2)) {
             if (target.isAdvantage()) {
                 target.setNextPoint(true);
+                return;
             }
         }
-
         if (isAd(target, player2)){
             if (player2.isAdvantage()){
                 player2.setAdvantage(false);
                 player2.setPoint(Points.FORTY);
-                return;
             } else {
                 target.setAdvantage(true);
                 target.setPoint(Points.AD);
             }
         }
-
-        //switch?
         if (!isAd(target, player2)) {
-            if (target.getPoint() == Points.ZERO) {
-                target.setPoint(Points.FIFTEEN);
-            } else if (target.getPoint() == Points.FIFTEEN) {
-                target.setPoint(Points.THIRTY);
-            } else if (target.getPoint() == Points.THIRTY) {
-                target.setPoint(Points.FORTY);
-            } else if (target.getPoint() == Points.FORTY) {
-                target.setPoint(Points.GAME);
-            } else {
-                target.setPoint(Points.ZERO);
+            switch (target.getPoint()) {
+                case ZERO: target.setPoint(Points.FIFTEEN);
+                    break;
+                case FIFTEEN: target.setPoint(Points.THIRTY);
+                    break;
+                case THIRTY: target.setPoint(Points.FORTY);
+                    break;
+                case FORTY: target.setPoint(Points.GAME);
+                    break;
             }
         }
     }
-    private boolean isWinGame(gameScore target, gameScore player2){
+    private boolean isWinGame(GameScore target, GameScore player2){
         if (target.isNextPoint()) {
             return true;
         }
@@ -52,7 +49,7 @@ public class MatchScoreCalculationService {
         }
         return false;
     }
-    private void addGame(gameScore target, gameScore player2) {
+    private void addGame(GameScore target, GameScore player2) {
         if (isWinGame(target, player2)) {
             target.setGame(target.getGame() + 1);
             target.setPoint(Points.ZERO);
@@ -63,14 +60,14 @@ public class MatchScoreCalculationService {
             player2.setNextPoint(false);
         }
     }
-    private boolean isSixGame(gameScore player) {
+    private boolean isSixGame(GameScore player) {
         return player.getGame() >= 6;
     }
-    private boolean isGapToGame(gameScore player1, gameScore player2) {
+    private boolean isGapToGame(GameScore player1, GameScore player2) {
         return (Math.abs(player1.getGame() - player2.getGame()) >= Math.abs(2))
                 && (isSixGame(player1) || isSixGame(player2));
     }
-    private void addSet(gameScore player1, gameScore player2) {
+    private void addSet(GameScore player1, GameScore player2) {
         if (isGapToGame(player1, player2)) {
             if (player1.getGame() > player2.getGame()) {
                 player1.setSet(player1.getSet() + 1);
@@ -84,33 +81,37 @@ public class MatchScoreCalculationService {
             }
         }
     }
-    private boolean isSevenPoint(gameScore player) {
+    private boolean isSevenPoint(GameScore player) {
         return (int) player.getPoint().getValue() >= 7;
     }
-    private boolean isGapToPoint(gameScore player1, gameScore player2) {
+    private boolean isGapToPoint(GameScore player1, GameScore player2) {
         int p1point = (int) player1.getPoint().getValue();
         int p2point = (int) player2.getPoint().getValue();
         return (Math.abs(p1point - p2point) >= Math.abs(2))
                 && (isSevenPoint(player1) || isSevenPoint(player2));
     }
-    private void addPointToTieBreak(gameScore player) {
-        Points[] values = Points.values();
-        int currentOrdinal = player.getPoint().ordinal();
-        if (currentOrdinal <= 15) {
-            player.setPoint(values[currentOrdinal + 1]);
-        }
+    private void addPointToTieBreak(GameScore player) {
+        player.setTieBreakPoint(player.getTieBreakPoint()+1);
     }
-    private void tieBreak(gameScore target, gameScore player2){
+    private boolean isGapToPointTieBreak(GameScore player1, GameScore player2) {
+        int p1point = player1.getTieBreakPoint();
+        int p2point = player2.getTieBreakPoint();
+        return (Math.abs(p1point - p2point) >= Math.abs(2))
+                && (p1point>=7 || p2point>=7);
+    }
+    private void tieBreak(GameScore target, GameScore player2){
         addPointToTieBreak(target);
-        if (isGapToPoint(target, player2)) {
+        if (isGapToPointTieBreak(target, player2)) {
             player2.setPoint(Points.ZERO);
+            player2.setTieBreakPoint(0);
             player2.setGame(0);
             target.setPoint(Points.ZERO);
+            target.setTieBreakPoint(0);
             target.setGame(0);
             target.setSet(target.getSet() + 1);
         }
     }
-    public void play(gameScore target, gameScore player2) {
+    public void play(GameScore target, GameScore player2) {
         if (target.getGame() == 6 && player2.getGame() == 6) {
             tieBreak(target, player2);
         } else {

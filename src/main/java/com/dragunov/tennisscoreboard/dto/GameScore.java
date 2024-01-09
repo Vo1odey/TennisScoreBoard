@@ -10,7 +10,7 @@ import lombok.ToString;
 @Setter
 @Getter
 @ToString
-public class gameScore {
+public class GameScore {
 
     private Points point;
     private int tieBreakPoint;
@@ -19,7 +19,7 @@ public class gameScore {
     private boolean advantage;
     private boolean nextPoint;
 
-    public gameScore(){
+    public GameScore(){
         point = Points.ZERO;
         tieBreakPoint = 0;
         game = 0;
