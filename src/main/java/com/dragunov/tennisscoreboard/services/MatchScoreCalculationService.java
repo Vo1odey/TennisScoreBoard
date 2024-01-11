@@ -81,9 +81,6 @@ public class MatchScoreCalculationService {
             }
         }
     }
-    private boolean isSevenPoint(GameScore player) {
-        return (int) player.getPoint().getValue() >= 7;
-    }
 
     private void addPointToTieBreak(GameScore player) {
         player.setTieBreakPoint(player.getTieBreakPoint()+1);

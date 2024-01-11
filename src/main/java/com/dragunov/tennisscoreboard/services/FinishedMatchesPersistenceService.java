@@ -25,6 +25,7 @@ public class FinishedMatchesPersistenceService {
         }
         matchRepository.mergeMatch(match);
     }
+    //move to repository
     public List<Match> usePaginationHibernate(SessionFactory sessionFactory, int page, String filter) {
         try (Session session = sessionFactory.openSession()){
             int pageSize = 5;

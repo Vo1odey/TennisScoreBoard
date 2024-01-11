@@ -1,6 +1,7 @@
 package com.dragunov.tennisscoreboard.utils;
 
 import com.dragunov.tennisscoreboard.servlets.NewMatchController;
+import lombok.Getter;
 
 import java.io.IOException;
 import java.util.logging.FileHandler;
@@ -8,9 +9,10 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 
+@Getter
 public class MyLogger {
     private static MyLogger instance;
-    private Logger logger;
+    private final Logger logger;
     private MyLogger(){
         logger = Logger.getLogger(NewMatchController.class.getName());
         FileHandler fileHandler;
@@ -24,13 +26,10 @@ public class MyLogger {
             e.printStackTrace();
         }
     }
-    public static MyLogger getInstance() {
+    public static synchronized MyLogger getInstance() {
         if (instance == null) {
             instance = new MyLogger();
         }
         return instance;
-    }
-    public Logger getLogger() {
-        return logger;
     }
 }
