@@ -1,7 +1,6 @@
 package com.dragunov.tennisscoreboard.servlets;
 
-import com.dragunov.tennisscoreboard.models.MatchModel;
-import com.dragunov.tennisscoreboard.models.PlayerModel;
+import com.dragunov.tennisscoreboard.models.Player;
 import com.dragunov.tennisscoreboard.repositories.MatchRepository;
 import com.dragunov.tennisscoreboard.repositories.PlayerRepository;
 import com.dragunov.tennisscoreboard.services.FinishedMatchesPersistenceService;
@@ -12,8 +11,6 @@ import jakarta.servlet.ServletContextListener;
 import jakarta.servlet.annotation.WebListener;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-
-import java.util.HashMap;
 
 @WebListener
 public class ContextListener implements ServletContextListener {
@@ -27,7 +24,7 @@ public class ContextListener implements ServletContextListener {
         Configuration configuration = new Configuration();
         configuration.configure("hibernate.cfg.xml");
         configuration.addAnnotatedClass(MatchRepository.class)
-                .addAnnotatedClass(PlayerModel.class);
+                .addAnnotatedClass(Player.class);
         SessionFactory sessionFactory = configuration.buildSessionFactory();
         PlayerRepository playerRepository = new PlayerRepository(sessionFactory);
         MatchRepository matchRepository = new MatchRepository(sessionFactory);

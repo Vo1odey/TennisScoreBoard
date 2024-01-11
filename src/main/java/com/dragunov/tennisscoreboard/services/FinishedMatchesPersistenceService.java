@@ -1,7 +1,7 @@
 package com.dragunov.tennisscoreboard.services;
 
-import com.dragunov.tennisscoreboard.models.MatchModel;
-import com.dragunov.tennisscoreboard.models.PlayerModel;
+import com.dragunov.tennisscoreboard.models.Match;
+import com.dragunov.tennisscoreboard.models.Player;
 import com.dragunov.tennisscoreboard.repositories.MatchRepository;
 import jakarta.persistence.TypedQuery;
 import jakarta.persistence.criteria.*;
@@ -14,18 +14,18 @@ import java.util.List;
 public class FinishedMatchesPersistenceService {
 
     public void saveFinishedMatch (MatchRepository matchRepository, OngoingMatchesService ongoingMatchesService, String uuid) {
-        MatchModel matchModel = ongoingMatchesService.getMatch(uuid);
+        Match match = ongoingMatchesService.getMatch(uuid);
         ongoingMatchesService.removeMatch(uuid);
-        PlayerModel player1 = matchModel.getPlayer1();
-        PlayerModel player2 = matchModel.getPlayer2();
+        Player player1 = match.getPlayer1();
+        Player player2 = match.getPlayer2();
         if (player1.getGameScore().getSet() == 2) {
-            matchModel.setWinner(player1);
+            match.setWinner(player1);
         } else if (player2.getGameScore().getSet() == 2) {
-            matchModel.setWinner(player2);
+            match.setWinner(player2);
         }
-        matchRepository.mergeMatch(matchModel);
+        matchRepository.mergeMatch(match);
     }
-    public List<MatchModel> usePaginationHibernate(SessionFactory sessionFactory, int page, String filter) {
+    public List<Match> usePaginationHibernate(SessionFactory sessionFactory, int page, String filter) {
         try (Session session = sessionFactory.openSession()){
             int pageSize = 5;
             int firstResult;
@@ -35,12 +35,12 @@ public class FinishedMatchesPersistenceService {
                 firstResult = pageSize * (page - 1);
             }
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
-            CriteriaQuery<MatchModel> criteriaQuery = criteriaBuilder.createQuery(MatchModel.class);
-            Root<MatchModel> root = criteriaQuery.from(MatchModel.class);
+            CriteriaQuery<Match> criteriaQuery = criteriaBuilder.createQuery(Match.class);
+            Root<Match> root = criteriaQuery.from(Match.class);
 
             // Создаем предикаты для фильтрации по имени игрока
-            Join<MatchModel, PlayerModel> player1Join = root.join("Player1");
-            Join<MatchModel, PlayerModel> player2Join = root.join("Player2");
+            Join<Match, Player> player1Join = root.join("Player1");
+            Join<Match, Player> player2Join = root.join("Player2");
             Predicate player1NamePredicate = criteriaBuilder.like(player1Join.get("name"), "%" + filter + "%");
             Predicate player2NamePredicate = criteriaBuilder.like(player2Join.get("name"), "%" + filter + "%");
 
@@ -50,9 +50,9 @@ public class FinishedMatchesPersistenceService {
             // Добавляем предикат в запрос
             criteriaQuery.where(playerNamePredicate);
 
-            CriteriaQuery<MatchModel> selectQuery = criteriaQuery.select(root);
+            CriteriaQuery<Match> selectQuery = criteriaQuery.select(root);
 
-            TypedQuery<MatchModel> typedQuery = session.createQuery(selectQuery);
+            TypedQuery<Match> typedQuery = session.createQuery(selectQuery);
             typedQuery.setFirstResult(firstResult);
             typedQuery.setMaxResults(pageSize);
 
@@ -64,11 +64,11 @@ public class FinishedMatchesPersistenceService {
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
             CriteriaQuery<Long> countQuery = criteriaBuilder.createQuery(Long.class);
 
-            Root<MatchModel> root = countQuery.from(MatchModel.class);
+            Root<Match> root = countQuery.from(Match.class);
 
             // Создаем предикаты для фильтрации по имени игрока
-            Join<MatchModel, PlayerModel> player1Join = root.join("Player1");
-            Join<MatchModel, PlayerModel> player2Join = root.join("Player2");
+            Join<Match, Player> player1Join = root.join("Player1");
+            Join<Match, Player> player2Join = root.join("Player2");
             Predicate player1NamePredicate = criteriaBuilder.like(player1Join.get("name"), "%" + filter + "%");
             Predicate player2NamePredicate = criteriaBuilder.like(player2Join.get("name"), "%" + filter + "%");
 

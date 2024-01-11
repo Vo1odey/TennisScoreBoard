@@ -14,8 +14,8 @@
         <property name="show_sql">false</property>
         <property name="format_sql">false</property>
 
-        <mapping class="com.dragunov.tennisscoreboard.models.PlayerModel"/>
-        <mapping class="com.dragunov.tennisscoreboard.models.MatchModel"/>
+        <mapping class="com.dragunov.tennisscoreboard.models.Player"/>
+        <mapping class="com.dragunov.tennisscoreboard.models.Match"/>
 
     </session-factory>
 </hibernate-configuration>

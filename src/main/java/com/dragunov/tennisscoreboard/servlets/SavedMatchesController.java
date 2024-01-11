@@ -1,6 +1,6 @@
 package com.dragunov.tennisscoreboard.servlets;
 
-import com.dragunov.tennisscoreboard.models.MatchModel;
+import com.dragunov.tennisscoreboard.models.Match;
 import com.dragunov.tennisscoreboard.repositories.MatchRepository;
 import com.dragunov.tennisscoreboard.services.FinishedMatchesPersistenceService;
 import jakarta.servlet.RequestDispatcher;
@@ -32,7 +32,7 @@ public class SavedMatchesController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String filter = req.getParameter("filter_by_player_name");
         int page = Integer.parseInt(req.getParameter("page"));
-        List<MatchModel> matchPage = finishedMatchesPersistenceService.usePaginationHibernate(sessionFactory, page, filter);
+        List<Match> matchPage = finishedMatchesPersistenceService.usePaginationHibernate(sessionFactory, page, filter);
         int quantityOfPages = finishedMatchesPersistenceService.quantityPages(sessionFactory, filter);
         req.setAttribute("quantityOfPages", quantityOfPages);
         req.setAttribute("filter", filter);

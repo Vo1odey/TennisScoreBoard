@@ -1,7 +1,7 @@
 package com.dragunov.tennisscoreboard.repositories;
 
-import com.dragunov.tennisscoreboard.models.MatchModel;
-import com.dragunov.tennisscoreboard.models.PlayerModel;
+import com.dragunov.tennisscoreboard.models.Match;
+import com.dragunov.tennisscoreboard.models.Player;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 
@@ -18,32 +18,32 @@ public class MatchRepository {
 
     public void addMatchToTableScoreBoard(){
         PlayerRepository playerRepository = new PlayerRepository(sessionFactory);
-        List<PlayerModel> players = playerRepository.getPlayers();
+        List<Player> players = playerRepository.getPlayers();
         Random random = new Random();
         int min = 0;
         int max = 9;
-        List<MatchModel> matches = new ArrayList<>();
+        List<Match> matches = new ArrayList<>();
         for (int i = 0; i < 10; i++) {
             int p1 = random.nextInt(max - min + 1) + min;
             int p2 = random.nextInt(max - min + 1) + min;
-            matches.add(new MatchModel(players.get(p1), players.get(p2), players.get(p1)));
+            matches.add(new Match(players.get(p1), players.get(p2), players.get(p1)));
         }
         try (Session session = sessionFactory.openSession()){
             session.beginTransaction();
-            for (MatchModel match:matches) {
+            for (Match match:matches) {
                 session.persist(match);
             }
             session.getTransaction().commit();
         }
     }
-    public List<MatchModel> getMatches() {
+    public List<Match> getMatches() {
         List matches;
         try (Session session = sessionFactory.openSession()) {
-            matches = session.createQuery("FROM MatchModel", MatchModel.class).getResultList();
+            matches = session.createQuery("FROM Match", Match.class).getResultList();
             return matches;
         }
     }
-    public void mergeMatch(MatchModel match){
+    public void mergeMatch(Match match){
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.merge(match);

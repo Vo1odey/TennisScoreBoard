@@ -1,9 +1,9 @@
 package com.dragunov.tennisscoreboard.repositories;
 
 import com.dragunov.tennisscoreboard.dto.GameScore;
-import com.dragunov.tennisscoreboard.models.PlayerModel;
+import com.dragunov.tennisscoreboard.exceptions.PlayerNotFoundException;
+import com.dragunov.tennisscoreboard.models.Player;
 import com.dragunov.tennisscoreboard.utils.MyLogger;
-import jakarta.persistence.NoResultException;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.hibernate.query.Query;
@@ -22,60 +22,60 @@ public class PlayerRepository {
     }
 
     public void addPlayerToH2() {
-        List<PlayerModel> players = new ArrayList<>();
-        players.add(new PlayerModel("Bob", new GameScore()));
-        players.add(new PlayerModel("Smith", new GameScore()));
-        players.add(new PlayerModel("Kelli", new GameScore()));
-        players.add(new PlayerModel("Bred", new GameScore()));
-        players.add(new PlayerModel("Fedor", new GameScore()));
-        players.add(new PlayerModel("Maria", new GameScore()));
-        players.add(new PlayerModel("Katy", new GameScore()));
-        players.add(new PlayerModel("Helen", new GameScore()));
-        players.add(new PlayerModel("Derek", new GameScore()));
-        players.add(new PlayerModel("Kenny", new GameScore()));
+        List<Player> players = new ArrayList<>();
+        players.add(new Player("Bob", new GameScore()));
+        players.add(new Player("Smith", new GameScore()));
+        players.add(new Player("Kelli", new GameScore()));
+        players.add(new Player("Bred", new GameScore()));
+        players.add(new Player("Fedor", new GameScore()));
+        players.add(new Player("Maria", new GameScore()));
+        players.add(new Player("Katy", new GameScore()));
+        players.add(new Player("Helen", new GameScore()));
+        players.add(new Player("Derek", new GameScore()));
+        players.add(new Player("Kenny", new GameScore()));
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
-            for (PlayerModel player:players) {
+            for (Player player:players) {
                 session.persist(player);
             }
             session.getTransaction().commit();
         }
     }
 
-    public List<PlayerModel> getPlayers() {
-        List<PlayerModel> players;
+    public List<Player> getPlayers() {
+        List<Player> players;
         try (Session session = sessionFactory.openSession()) {
-            players = session.createQuery("FROM PlayerModel", PlayerModel.class).getResultList();
+            players = session.createQuery("FROM Player", Player.class).getResultList();
             return players;
         }
     }
 
-    public PlayerModel getPlayerByName(String name) throws NoResultException {
+    public Player getPlayerByName(String name) throws PlayerNotFoundException {
         try (Session session = sessionFactory.openSession()) {
-            Query<PlayerModel> query = session.createQuery("FROM PlayerModel WHERE name = :player");
+            Query<Player> query = session.createQuery("FROM Player WHERE name = :player");
             query.setParameter("player", name);
-            PlayerModel player = query.getSingleResult();
+            Player player = query.uniqueResult();
             if (player == null) {
-                throw new NoResultException();
+                throw new PlayerNotFoundException("Player not found");
             }
             return player;
         }
     }
-    public void savePlayer(PlayerModel player){
+    public void savePlayer(Player player){
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             session.merge(player);
             session.getTransaction().commit();
         }
     }
-    public PlayerModel getPlayerOrCreateHim(String name) {
-        PlayerModel player;
+    public Player getPlayerOrCreateHim(String name) {
+        Player player;
         try {
             player = getPlayerByName(name);
             player.setGameScore(new GameScore());
             log.log(Level.WARNING, "get player from database - success");
-        } catch (NoResultException e) {
-            player = new PlayerModel(name, new GameScore());
+        } catch (PlayerNotFoundException e) {
+            player = new Player(name, new GameScore());
             savePlayer(player);
             log.log(Level.WARNING, "create a player and saves this in database");
         }

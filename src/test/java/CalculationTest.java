@@ -1,12 +1,11 @@
 import com.dragunov.tennisscoreboard.dto.GameScore;
-import com.dragunov.tennisscoreboard.models.MatchModel;
-import com.dragunov.tennisscoreboard.models.PlayerModel;
+import com.dragunov.tennisscoreboard.models.Match;
+import com.dragunov.tennisscoreboard.models.Player;
 import com.dragunov.tennisscoreboard.repositories.MatchRepository;
 import com.dragunov.tennisscoreboard.repositories.PlayerRepository;
 import com.dragunov.tennisscoreboard.services.FinishedMatchesPersistenceService;
 import com.dragunov.tennisscoreboard.services.MatchScoreCalculationService;
 import com.dragunov.tennisscoreboard.services.Points;
-import com.dragunov.tennisscoreboard.services.Validation;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 import org.junit.jupiter.api.Assertions;
@@ -24,7 +23,7 @@ public class CalculationTest {
     public void gameIsNotOver() {
         Bob.setPoint(Points.FORTY);
         Taylor.setPoint(Points.FORTY);
-        calculation.play(Bob, Taylor);
+        calculation.wonPoint(Bob, Taylor);
         Assertions.assertEquals(0, Bob.getGame());
         Assertions.assertEquals(0, Taylor.getGame());
     }
@@ -32,7 +31,7 @@ public class CalculationTest {
     public void gameOver() {
         Bob.setPoint(Points.FORTY);
         Taylor.setPoint(Points.ZERO);
-        calculation.play(Bob, Taylor);
+        calculation.wonPoint(Bob, Taylor);
         Assertions.assertEquals(1, Bob.getGame());
         Assertions.assertEquals(0, Taylor.getGame());
     }
@@ -40,7 +39,7 @@ public class CalculationTest {
     public void tieBreak() {
         Bob.setGame(6);
         Taylor.setGame(6);
-        calculation.play(Bob, Taylor);
+        calculation.wonPoint(Bob, Taylor);
         Assertions.assertEquals(1, Bob.getTieBreakPoint());
         Assertions.assertEquals(0, Taylor.getTieBreakPoint());
     }
@@ -51,8 +50,8 @@ public class CalculationTest {
         Bob.setTieBreakPoint(5);
         Taylor.setGame(6);
         Taylor.setTieBreakPoint(6);
-        calculation.play(Bob, Taylor);
-        calculation.play(Taylor, Bob);
+        calculation.wonPoint(Bob, Taylor);
+        calculation.wonPoint(Taylor, Bob);
         Assertions.assertEquals(0, Bob.getSet());
         Assertions.assertEquals(0, Taylor.getSet());
     }
@@ -63,7 +62,7 @@ public class CalculationTest {
         Bob.setTieBreakPoint(5);
         Taylor.setGame(6);
         Taylor.setTieBreakPoint(6);
-        calculation.play(Taylor, Bob);
+        calculation.wonPoint(Taylor, Bob);
         Assertions.assertEquals(1, Taylor.getSet());
         Assertions.assertEquals(0, Bob.getSet());
     }
@@ -72,7 +71,7 @@ public class CalculationTest {
     public void playerAd() {
         Bob.setPoint(Points.FORTY);
         Taylor.setPoint(Points.FORTY);
-        calculation.play(Bob, Taylor);
+        calculation.wonPoint(Bob, Taylor);
         Assertions.assertEquals("Ad", Bob.getPoint().getValue());
     }
     //Если игрок 1 имеет преимущество, а игрок 2 выигрывает очко - игрок 1 теряет преимущество
@@ -81,7 +80,7 @@ public class CalculationTest {
         Taylor.setPoint(Points.FORTY);
         Bob.setPoint(Points.AD);
         Bob.setAdvantage(true);
-        calculation.play(Taylor, Bob);
+        calculation.wonPoint(Taylor, Bob);
         Assertions.assertEquals(Points.FORTY, Bob.getPoint());
         Assertions.assertEquals(Points.FORTY, Taylor.getPoint() );
     }
@@ -91,7 +90,7 @@ public class CalculationTest {
         Taylor.setPoint(Points.FORTY);
         Bob.setPoint(Points.AD);
         Bob.setAdvantage(true);
-        calculation.play(Bob, Taylor);
+        calculation.wonPoint(Bob, Taylor);
         Assertions.assertEquals(1, Bob.getGame());
         Assertions.assertEquals(0, Taylor.getGame());
     }
@@ -101,22 +100,17 @@ public class CalculationTest {
         Configuration configuration = new Configuration();
         configuration.configure("hibernate.cfg.xml");
         configuration.addAnnotatedClass(MatchRepository.class)
-                .addAnnotatedClass(PlayerModel.class);
+                .addAnnotatedClass(Player.class);
         SessionFactory sessionFactory = configuration.buildSessionFactory();
         FinishedMatchesPersistenceService finishedMatchesPersistenceService = new FinishedMatchesPersistenceService();
         PlayerRepository playerRepository = new PlayerRepository(sessionFactory);
         MatchRepository matchRepository = new MatchRepository(sessionFactory);
         playerRepository.addPlayerToH2();
         matchRepository.addMatchToTableScoreBoard();
-        List<MatchModel> matches = finishedMatchesPersistenceService.usePaginationHibernate(sessionFactory, 1,"");
-        for (MatchModel match:matches) {
+        List<Match> matches = finishedMatchesPersistenceService.usePaginationHibernate(sessionFactory, 1,"");
+        for (Match match:matches) {
             System.out.println(match);
         }
         System.out.println(finishedMatchesPersistenceService.quantityPages(sessionFactory, ""));
-    }
-    @Test
-    public void validateName(){
-        Validation validation = new Validation();
-        System.out.println(validation.validatePlayerName(" VOvAN Dragunov"));
     }
 }

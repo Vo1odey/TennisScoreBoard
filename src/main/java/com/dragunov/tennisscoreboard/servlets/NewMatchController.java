@@ -1,8 +1,9 @@
 package com.dragunov.tennisscoreboard.servlets;
 
 
-import com.dragunov.tennisscoreboard.models.MatchModel;
-import com.dragunov.tennisscoreboard.models.PlayerModel;
+import com.dragunov.tennisscoreboard.exceptions.InvalidPlayerNameException;
+import com.dragunov.tennisscoreboard.models.Match;
+import com.dragunov.tennisscoreboard.models.Player;
 import com.dragunov.tennisscoreboard.repositories.PlayerRepository;
 import com.dragunov.tennisscoreboard.utils.MyLogger;
 import com.dragunov.tennisscoreboard.services.OngoingMatchesService;
@@ -48,17 +49,17 @@ public class NewMatchController extends HttpServlet {
             firstPlayerName = validation.validatePlayerName(req.getParameter("Player1"));
             secondPlayerName = validation.validatePlayerName(req.getParameter("Player2"));
             log.log(Level.WARNING, "Validation names - success");
-        } catch (IllegalArgumentException e) {
+        } catch (InvalidPlayerNameException e) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             resp.getWriter().write(String.valueOf(e));
-            log.log(Level.WARNING, "* Player name is invalid *");
+            log.log(Level.WARNING, "Player name is invalid");
             return;
         }
-        PlayerModel player1 = playerRepository.getPlayerOrCreateHim(firstPlayerName);
-        PlayerModel player2 = playerRepository.getPlayerOrCreateHim(secondPlayerName);
+        Player player1 = playerRepository.getPlayerOrCreateHim(firstPlayerName);
+        Player player2 = playerRepository.getPlayerOrCreateHim(secondPlayerName);
         Random random = new Random();
         String UUID = player1.getId() + "" + player2.getId() + random.nextInt(100);
-        ongoingMatchesService.recordCurrentMatch(new MatchModel(player1, player2), UUID);
+        ongoingMatchesService.recordCurrentMatch(new Match(player1, player2), UUID);
         resp.sendRedirect("/match-score?uuid=" + UUID);
     }
 }

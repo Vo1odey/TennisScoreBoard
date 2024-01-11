@@ -1,17 +1,17 @@
 package com.dragunov.tennisscoreboard.services;
 
-import com.dragunov.tennisscoreboard.models.MatchModel;
+import com.dragunov.tennisscoreboard.models.Match;
 
 import java.util.HashMap;
 
 public class OngoingMatchesService {
-    private HashMap<String, MatchModel> storage = new HashMap<>();
+    private HashMap<String, Match> storage = new HashMap<>();
 
-    public void recordCurrentMatch(MatchModel matchModel, String uuid) {
-        storage.put(uuid, matchModel);
+    public void recordCurrentMatch(Match match, String uuid) {
+        storage.put(uuid, match);
     }
 
-    public MatchModel getMatch(String uuid) {
+    public Match getMatch(String uuid) {
         return storage.get(uuid);
     }
 

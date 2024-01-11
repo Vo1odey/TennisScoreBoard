@@ -1,6 +1,214 @@
-Jan 09, 2024 12:54:41 PM com.dragunov.tennisscoreboard.servlets.NewMatchController doPost
+Jan 11, 2024 4:02:58 PM com.dragunov.tennisscoreboard.servlets.NewMatchController doPost
 WARNING: Validation names - success
-Jan 09, 2024 12:54:41 PM com.dragunov.tennisscoreboard.repositories.PlayerRepository getPlayerOrCreateHim
-WARNING: get player from database - success
-Jan 09, 2024 12:54:41 PM com.dragunov.tennisscoreboard.repositories.PlayerRepository getPlayerOrCreateHim
-WARNING: get player from database - success
+Jan 11, 2024 4:02:58 PM com.dragunov.tennisscoreboard.repositories.PlayerRepository getPlayerOrCreateHim
+WARNING: create a player and saves this in database
+Jan 11, 2024 4:02:58 PM com.dragunov.tennisscoreboard.repositories.PlayerRepository getPlayerOrCreateHim
+WARNING: create a player and saves this in database
+Jan 11, 2024 4:02:58 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:02:58 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:03 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:03 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:04 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:04 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:04 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:04 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:05 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:05 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:06 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:06 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:06 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:06 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:07 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:07 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:08 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:08 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:08 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:08 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:08 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:08 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:09 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:09 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:12 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:12 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:13 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:13 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:13 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:13 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:13 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:13 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:13 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:13 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:14 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:14 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:14 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:14 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:14 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:14 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:14 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:14 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:14 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:14 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:14 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:14 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:15 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:15 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:15 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:15 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:15 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:15 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:15 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:15 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:15 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:15 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:16 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:16 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:16 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:16 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:16 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:16 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:16 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:16 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:16 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:16 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:17 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:17 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:17 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:17 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:17 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:17 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:17 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:17 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:17 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:17 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:18 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:18 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:18 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:18 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:18 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:18 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:18 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:18 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:18 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:18 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:19 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:19 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:19 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:19 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:19 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:19 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:19 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:19 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:19 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:19 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:20 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:20 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:20 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:20 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:20 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:20 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success
+Jan 11, 2024 4:03:20 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID
+Jan 11, 2024 4:03:20 PM com.dragunov.tennisscoreboard.servlets.MatchScoreController doGet
+WARNING: getting UUID success

@@ -84,12 +84,7 @@ public class MatchScoreCalculationService {
     private boolean isSevenPoint(GameScore player) {
         return (int) player.getPoint().getValue() >= 7;
     }
-    private boolean isGapToPoint(GameScore player1, GameScore player2) {
-        int p1point = (int) player1.getPoint().getValue();
-        int p2point = (int) player2.getPoint().getValue();
-        return (Math.abs(p1point - p2point) >= Math.abs(2))
-                && (isSevenPoint(player1) || isSevenPoint(player2));
-    }
+
     private void addPointToTieBreak(GameScore player) {
         player.setTieBreakPoint(player.getTieBreakPoint()+1);
     }
@@ -111,7 +106,7 @@ public class MatchScoreCalculationService {
             target.setSet(target.getSet() + 1);
         }
     }
-    public void play(GameScore target, GameScore player2) {
+    public void wonPoint(GameScore target, GameScore player2) {
         if (target.getGame() == 6 && player2.getGame() == 6) {
             tieBreak(target, player2);
         } else {

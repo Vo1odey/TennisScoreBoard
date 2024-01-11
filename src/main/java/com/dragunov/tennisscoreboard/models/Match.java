@@ -6,7 +6,7 @@ import lombok.*;
 @Data
 @Entity
 @Table(name = "MATCHES")
-public class MatchModel {
+public class Match {
 
     @Id
     @Column(name = "ID")
@@ -15,27 +15,27 @@ public class MatchModel {
 
     @ManyToOne
     @JoinColumn(name = "Player1", referencedColumnName = "id")
-    private PlayerModel Player1;
+    private Player Player1;
 
 
     @ManyToOne
     @JoinColumn(name = "Player2", referencedColumnName = "id")
-    private PlayerModel Player2;
+    private Player Player2;
 
     @ManyToOne
     @JoinColumn(name = "Winner", referencedColumnName = "id")
-    private PlayerModel Winner;
+    private Player Winner;
 
-    public MatchModel() {
+    public Match() {
     }
 
-    public MatchModel(PlayerModel player1, PlayerModel player2, PlayerModel winner) {
+    public Match(Player player1, Player player2, Player winner) {
         Player1 = player1;
         Player2 = player2;
         Winner = winner;
     }
 
-    public MatchModel(PlayerModel player1, PlayerModel player2){
+    public Match(Player player1, Player player2){
         Player1 = player1;
         Player2 = player2;
     }

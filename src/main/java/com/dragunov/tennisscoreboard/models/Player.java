@@ -7,7 +7,7 @@ import lombok.*;
 @Data
 @Entity
 @Table(name = "PLAYERS")
-public class PlayerModel {
+public class Player {
 
     @Id
     @Column(name = "ID")
@@ -18,10 +18,10 @@ public class PlayerModel {
 
     @Transient
     private GameScore gameScore;
-    public PlayerModel() {
+    public Player() {
     }
 
-    public PlayerModel(String name, GameScore gameScore) {
+    public Player(String name, GameScore gameScore) {
         this.name = name;
         this.gameScore = gameScore;
     }
