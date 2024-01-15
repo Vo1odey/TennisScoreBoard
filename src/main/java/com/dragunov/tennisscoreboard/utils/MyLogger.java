@@ -17,7 +17,7 @@ public class MyLogger {
         logger = Logger.getLogger(NewMatchController.class.getName());
         FileHandler fileHandler;
         try {
-            fileHandler = new FileHandler("/Users/Java/IdeaProjects/TennisScoreBoard/src/main/java/log/logs.txt");
+            fileHandler = new FileHandler("/Users/Java/IdeaProjects/TennisScoreBoard/log/logs.txt");
             SimpleFormatter formatter = new SimpleFormatter();
             fileHandler.setFormatter(formatter);
             logger.setLevel(Level.WARNING);

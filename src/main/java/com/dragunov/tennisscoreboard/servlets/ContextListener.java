@@ -30,7 +30,6 @@ public class ContextListener implements ServletContextListener {
         MatchRepository matchRepository = new MatchRepository(sessionFactory);
         FinishedMatchesPersistenceService finishedMatchesPersistenceService = new FinishedMatchesPersistenceService();
         context.setAttribute("finishedMatchesPersistenceService", finishedMatchesPersistenceService);
-        context.setAttribute("sessionFactory", sessionFactory);
         context.setAttribute("playerRepository", playerRepository);
         context.setAttribute("matchRepository", matchRepository);
     }

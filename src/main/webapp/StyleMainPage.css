@@ -11,23 +11,20 @@
   height: 100px;
   width: 90%;
   line-height: 100px;
-  /* background: #2787d681; */
-  /* color: #0a0a0a; */
   text-align: center;
   border: 3px solid rgb(15, 51, 97);
   border-radius: 25px;
 }
 #title {
   font-size: 55px;
-  -webkit-text-stroke: 1px rgba(0, 0, 0, 0.802); /* Для поддержки веб-кит браузерами */
-  /* background: #00000011; */
+  -webkit-text-stroke: 1px rgba(0, 0, 0, 0.802);
   color: #fcfdff;
 }
 body {
   font-family: "Roboto", sans-serif;
   background-image: url(background.jpg);
-  background-size: cover; /* чтобы изображение занимало всю доступную площадь */
-  background-repeat: no-repeat; /* чтобы изображение не повторялось */
+  background-size: cover;
+  background-repeat: no-repeat;
 }
 
 /* MainPage Style */
@@ -35,8 +32,6 @@ body {
 #containerNewMatch {
   display: flex;
   justify-content: space-between;
-  /* background-color: bisque;
-  border: 2px solid black; */
   width: 45%;
   height: 10%;
   margin: auto;
@@ -46,16 +41,12 @@ body {
   margin-left: 5px;
   width: 70%;
   height: 70%;
-  /* border: 2px solid red;
-  background-color: aquamarine; */
   box-sizing: border-box;
 }
 #matchesForm {
   margin-right: 5px;
   width: 70%;
   height: 70%;
-  /* border: 2px solid red;
-  background-color: aquamarine; */
   box-sizing: border-box;
 }
 #buttonNewMatch {
@@ -64,7 +55,7 @@ body {
   border-radius: 7px;
   height: 100%;
   width: 95%;
-  -webkit-text-stroke: 1px rgb(255, 255, 255); /* Для поддержки веб-кит браузерами */
+  -webkit-text-stroke: 1px rgb(255, 255, 255);
   background-color: #69c6a8;
   color: #000000;
   font-size: 30px;
@@ -75,7 +66,7 @@ body {
   border-radius: 7px;
   height: 100%;
   width: 95%;
-  -webkit-text-stroke: 1px rgb(255, 255, 255); /* Для поддержки веб-кит браузерами */
+  -webkit-text-stroke: 1px rgb(255, 255, 255);
   background-color: #69c6a8;
   color: #000000;
   font-size: 30px;
@@ -86,8 +77,6 @@ body {
 #tableHeaders {
   display: flex;
   border-radius: 5px;
-  /* background-color: bisque;
-  border: 2px solid black; */
   width: 80%;
   height: 10%;
   margin: auto;
@@ -96,7 +85,7 @@ body {
 }
 .headers {
   font-size: 30px;
-  -webkit-text-stroke: 1px rgba(9, 9, 9, 0.819); /* Для поддержки веб-кит браузерами */
+  -webkit-text-stroke: 1px rgba(9, 9, 9, 0.819);
   border-radius: 5px;
   padding-top: 1.5%;
   text-align: center;
@@ -108,10 +97,8 @@ body {
   color: #ffffff;
   box-sizing: border-box;
 }
-#tableData {
+.tableData {
   display: flex;
-  /* background-color: bisque;
-  border: 2px solid black; */
   width: 80%;
   height: 10%;
   margin: auto;
@@ -135,8 +122,6 @@ body {
 #playerWonContainer {
   display: flex;
   justify-content: space-between;
-  /* background-color: bisque;
-  border: 2px solid black; */
   width: 80%;
   height: 15%;
   margin: auto;
@@ -147,16 +132,12 @@ body {
   margin-left: 3px;
   width: 30%;
   height: 50%;
-  /* border: 2px solid red;
-  background-color: aquamarine; */
   box-sizing: border-box;
 }
 #secondPlayerWonForm {
   margin-right: 3px;
   width: 30%;
   height: 50%;
-  /* border: 2px solid red;
-  background-color: aquamarine; */
   box-sizing: border-box;
 }
 #p1WonButton {
@@ -165,7 +146,7 @@ body {
   border-radius: 7px;
   height: 100%;
   width: 95%;
-  -webkit-text-stroke: 1px rgb(255, 255, 255); /* Для поддержки веб-кит браузерами */
+  -webkit-text-stroke: 1px rgb(255, 255, 255);
   background-color: #69c6a8;
   color: #000000;
   font-size: 30px;
@@ -176,7 +157,7 @@ body {
   border-radius: 7px;
   height: 100%;
   width: 95%;
-  -webkit-text-stroke: 1px rgb(255, 255, 255); /* Для поддержки веб-кит браузерами */
+  -webkit-text-stroke: 1px rgb(255, 255, 255);
   background-color: #69c6a8;
   color: #010101;
   font-size: 30px;
@@ -190,7 +171,7 @@ body {
   height: 7%;
   border: 2px solid black;
   border-radius: 25px;
-  -webkit-text-stroke: 1px rgb(0, 0, 0); /* Для поддержки веб-кит браузерами */
+  -webkit-text-stroke: 1px rgb(0, 0, 0);
   background-color: #6ccdae;
   font-size: 35px;
   padding-top: 1%;
@@ -203,8 +184,6 @@ body {
 #newMatchAndSearchFormContainer {
   display: flex;
   justify-content: space-between;
-  /* background-color: bisque;
-  border: 2px solid black; */
   width: 90%;
   height: 7%;
   margin: auto;
@@ -214,8 +193,6 @@ body {
   margin-left: 5px;
   width: 50%;
   height: 100%;
-  /* border: 2px solid red;
-  background-color: aquamarine; */
   box-sizing: border-box;
 }
 
@@ -225,7 +202,7 @@ body {
   border-radius: 7px;
   height: 100%;
   width: 50%;
-  -webkit-text-stroke: 1px rgb(255, 255, 255); /* Для поддержки веб-кит браузерами */
+  -webkit-text-stroke: 1px rgb(255, 255, 255);
   background-color: #69c6a8;
   color: #000000;
   font-size: 35px;
@@ -236,12 +213,10 @@ body {
   justify-content: flex-end;
   width: 70%;
   height: 100%;
-  /* border: 2px solid rgb(255, 170, 0);
-  background-color: rgb(170, 170, 170); */
   box-sizing: border-box;
 }
 #playerName {
-  -webkit-text-stroke: 0.3px rgb(255, 255, 255); /* Для поддержки веб-кит браузерами */
+  -webkit-text-stroke: 0.3px rgb(255, 255, 255);
   font-size: 23px;
   border-radius: 7px;
   padding-top: 1.5%;
@@ -251,17 +226,13 @@ body {
   height: 100%;
   margin-right: 10px;
   text-align: center;
-  /* border: 2px solid red; */
   background-color: #69c6a8;
   box-sizing: border-box;
 }
 #inputText {
-  /* border: 2px solid black; */
   margin-right: 10px;
   display: inline-block;
   width: 40%;
-  /* border: 2px solid red; */
-  /* background-color: #69c6a8; */
   box-sizing: border-box;
 }
 #input {
@@ -276,12 +247,10 @@ body {
   width: 20%;
   display: inline-block;
   margin-right: 10px;
-  /* border: 2px solid red; */
-  /* background-color: aquamarine; */
   box-sizing: border-box;
 }
 #buttonSearch {
-  -webkit-text-stroke: 1.1px rgb(255, 255, 255); /* Для поддержки веб-кит браузерами */
+  -webkit-text-stroke: 1.1px rgb(255, 255, 255);
   width: 100%;
   height: 100%;
   box-sizing: border-box;
@@ -299,8 +268,6 @@ body {
 
   margin: auto;
   border-radius: 5px;
-  /* background-color: bisque;
-  border: 2px solid black; */
   width: 90%;
   height: 7%;
   box-sizing: border-box;
@@ -316,7 +283,7 @@ body {
   display: inline-block;
   width: 30%;
   height: 100%;
-  -webkit-text-stroke: 0.3px rgb(255, 255, 255); /* Для поддержки веб-кит браузерами */
+  -webkit-text-stroke: 0.3px rgb(255, 255, 255);
   background-color: #6ccdae;
   color: #000000;
   box-sizing: border-box;
@@ -355,9 +322,6 @@ body {
 
 .filedForForm {
   display: flex;
-  /* justify-content: center; */
-  /* background-color: bisque;
-  border: 2px solid black; */
   width: 80%;
   height: 20%;
   margin: auto;
@@ -367,15 +331,13 @@ body {
   display: flex;
 
   flex-direction: column;
-  /* justify-content: center; */
   align-items: center;
-  /* border: 2px solid black; */
   width: 100%;
   height: 100%;
   box-sizing: border-box;
 }
 .playersName {
-  -webkit-text-stroke: 0.2px rgb(255, 255, 255); /* Для поддержки веб-кит браузерами */
+  -webkit-text-stroke: 0.2px rgb(255, 255, 255);
   font-size: 23px;
   margin-bottom: 5px;
   flex-direction: row;
@@ -398,7 +360,7 @@ body {
   border-radius: 10px;
 }
 #create {
-  -webkit-text-stroke: 0.7px rgb(255, 255, 255); /* Для поддержки веб-кит браузерами */
+  -webkit-text-stroke: 0.7px rgb(255, 255, 255);
   background-color: #6ccdae;
   color: rgb(0, 0, 0);
   font-size: 33px;

@@ -22,27 +22,16 @@
       <h2 class="headers">Point</h2>
       <h2 class="headers">Name</h2>
     </div>
-    <div id="tableData">
-      <h2 class="data">${player1.gameScore.set}</h2>
-      <h2 class="data">${player1.gameScore.game}</h2>
-      <h2 class="data">
-        <c:if test="${player1.gameScore.tieBreakPoint > 0}">
-        ${player1.gameScore.tieBreakPoint}
-      </c:if>
-        <c:if test="${player1.gameScore.tieBreakPoint == 0}">
-          ${player1.gameScore.point.getValue()}
-        </c:if></h2>
+    <div class="tableData">
+      <h2 class="data">${player1.playerMatchScore.countSet.set}</h2>
+      <h2 class="data">${player1.playerMatchScore.countGame.game}</h2>
+      <h2 class="data">${player1.playerMatchScore.countPoint.renderPoint}</h2>
       <h2 class="data">${player1.name}</h2>
     </div>
-    <div id="tableData">
-      <h2 class="data">${player2.gameScore.set}</h2>
-      <h2 class="data">${player2.gameScore.game}</h2>
-      <h2 class="data">        <c:if test="${player2.gameScore.tieBreakPoint > 0}">
-        ${player2.gameScore.tieBreakPoint}
-      </c:if>
-        <c:if test="${player2.gameScore.tieBreakPoint == 0}">
-          ${player2.gameScore.point.getValue()}
-        </c:if></h2>
+    <div class="tableData">
+      <h2 class="data">${player2.playerMatchScore.countSet.set}</h2>
+      <h2 class="data">${player2.playerMatchScore.countGame.game}</h2>
+      <h2 class="data">${player2.playerMatchScore.countPoint.renderPoint}</h2>
       <h2 class="data">${player2.name}</h2>
     </div>
     <br />

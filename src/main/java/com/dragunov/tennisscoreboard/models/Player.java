@@ -1,6 +1,6 @@
 package com.dragunov.tennisscoreboard.models;
 
-import com.dragunov.tennisscoreboard.dto.GameScore;
+import com.dragunov.tennisscoreboard.services.matchscore.PlayerMatchScore;
 import jakarta.persistence.*;
 import lombok.*;
 
@@ -15,22 +15,12 @@ public class Player {
     private int id;
     @Column(name = "NAME")
     private String name;
-
     @Transient
-    private GameScore gameScore;
+    private PlayerMatchScore playerMatchScore;
     public Player() {
     }
-
-    public Player(String name, GameScore gameScore) {
+    public Player(String name, PlayerMatchScore playerMatchScore) {
         this.name = name;
-        this.gameScore = gameScore;
-    }
-
-    @Override
-    public String toString() {
-        return "PlayerModel{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                '}';
+        this.playerMatchScore = playerMatchScore;
     }
 }

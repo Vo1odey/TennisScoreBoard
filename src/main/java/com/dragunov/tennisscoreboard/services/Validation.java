@@ -4,7 +4,7 @@ import com.dragunov.tennisscoreboard.exceptions.InvalidPlayerNameException;
 
 public class Validation {
 
-    public String validatePlayerName(String name) throws InvalidPlayerNameException {
+    public static String validatePlayerName(String name) throws InvalidPlayerNameException {
         if (name == null || name.isEmpty()) {
             throw new InvalidPlayerNameException("Player name is invalid");
         }

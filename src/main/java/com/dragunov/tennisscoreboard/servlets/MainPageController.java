@@ -2,7 +2,6 @@ package com.dragunov.tennisscoreboard.servlets;
 
 import com.dragunov.tennisscoreboard.repositories.MatchRepository;
 import com.dragunov.tennisscoreboard.repositories.PlayerRepository;
-import com.dragunov.tennisscoreboard.services.OngoingMatchesService;
 import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;

@@ -1,8 +1,12 @@
 package com.dragunov.tennisscoreboard.repositories;
 
-import com.dragunov.tennisscoreboard.dto.GameScore;
+
 import com.dragunov.tennisscoreboard.exceptions.PlayerNotFoundException;
 import com.dragunov.tennisscoreboard.models.Player;
+import com.dragunov.tennisscoreboard.services.matchscore.CountGame;
+import com.dragunov.tennisscoreboard.services.matchscore.CountPoint;
+import com.dragunov.tennisscoreboard.services.matchscore.CountSet;
+import com.dragunov.tennisscoreboard.services.matchscore.PlayerMatchScore;
 import com.dragunov.tennisscoreboard.utils.MyLogger;
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
@@ -23,16 +27,16 @@ public class PlayerRepository {
 
     public void addPlayerToH2() {
         List<Player> players = new ArrayList<>();
-        players.add(new Player("Bob", new GameScore()));
-        players.add(new Player("Smith", new GameScore()));
-        players.add(new Player("Kelli", new GameScore()));
-        players.add(new Player("Bred", new GameScore()));
-        players.add(new Player("Fedor", new GameScore()));
-        players.add(new Player("Maria", new GameScore()));
-        players.add(new Player("Katy", new GameScore()));
-        players.add(new Player("Helen", new GameScore()));
-        players.add(new Player("Derek", new GameScore()));
-        players.add(new Player("Kenny", new GameScore()));
+        players.add(new Player("Bob", new PlayerMatchScore()));
+        players.add(new Player("Smith", new PlayerMatchScore()));
+        players.add(new Player("Kelli", new PlayerMatchScore()));
+        players.add(new Player("Bred", new PlayerMatchScore()));
+        players.add(new Player("Fedor", new PlayerMatchScore()));
+        players.add(new Player("Maria", new PlayerMatchScore()));
+        players.add(new Player("Katy", new PlayerMatchScore()));
+        players.add(new Player("Helen", new PlayerMatchScore()));
+        players.add(new Player("Derek", new PlayerMatchScore()));
+        players.add(new Player("Kenny", new PlayerMatchScore()));
         try (Session session = sessionFactory.openSession()) {
             session.beginTransaction();
             for (Player player:players) {
@@ -72,10 +76,10 @@ public class PlayerRepository {
         Player player;
         try {
             player = getPlayerByName(name);
-            player.setGameScore(new GameScore());
-            log.log(Level.WARNING, "get player from database - success");
+            player.setPlayerMatchScore(new PlayerMatchScore());
+            log.log(Level.WARNING, "get player from database");
         } catch (PlayerNotFoundException e) {
-            player = new Player(name, new GameScore());
+            player = new Player(name, new PlayerMatchScore());
             savePlayer(player);
             log.log(Level.WARNING, "create a player and saves this in database");
         }

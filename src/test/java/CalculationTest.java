@@ -1,116 +1,161 @@
-import com.dragunov.tennisscoreboard.dto.GameScore;
-import com.dragunov.tennisscoreboard.models.Match;
 import com.dragunov.tennisscoreboard.models.Player;
-import com.dragunov.tennisscoreboard.repositories.MatchRepository;
-import com.dragunov.tennisscoreboard.repositories.PlayerRepository;
-import com.dragunov.tennisscoreboard.services.FinishedMatchesPersistenceService;
-import com.dragunov.tennisscoreboard.services.MatchScoreCalculationService;
-import com.dragunov.tennisscoreboard.services.Points;
-import org.hibernate.SessionFactory;
-import org.hibernate.cfg.Configuration;
+import com.dragunov.tennisscoreboard.services.CheckMatchStatus;
+
+import com.dragunov.tennisscoreboard.services.matchscore.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
-
 public class CalculationTest {
-    MatchScoreCalculationService calculation = new MatchScoreCalculationService();
-    GameScore Bob = new GameScore();
-    GameScore Taylor = new GameScore();
-
-    @Test
-    public void gameIsNotOver() {
-        Bob.setPoint(Points.FORTY);
-        Taylor.setPoint(Points.FORTY);
-        calculation.wonPoint(Bob, Taylor);
-        Assertions.assertEquals(0, Bob.getGame());
-        Assertions.assertEquals(0, Taylor.getGame());
+    Player createPlayer(String name) {
+        PlayerMatchScore playerMatchScore = new PlayerMatchScore();
+        return new Player(name, playerMatchScore);
     }
     @Test
-    public void gameOver() {
-        Bob.setPoint(Points.FORTY);
-        Taylor.setPoint(Points.ZERO);
-        calculation.wonPoint(Bob, Taylor);
-        Assertions.assertEquals(1, Bob.getGame());
-        Assertions.assertEquals(0, Taylor.getGame());
+    void getMatchStatus_PointsZeroZero_Ongoing() {
+        PlayerMatchScore first = createPlayer("Bob").getPlayerMatchScore();
+        PlayerMatchScore second = createPlayer("Sam").getPlayerMatchScore();
+        MatchStatus matchStatus = CheckMatchStatus.INSTANCE.getMatchStatus(first, second);
+        Assertions.assertEquals(MatchStatus.ONGOING, matchStatus);
     }
     @Test
-    public void tieBreak() {
-        Bob.setGame(6);
-        Taylor.setGame(6);
-        calculation.wonPoint(Bob, Taylor);
-        Assertions.assertEquals(1, Bob.getTieBreakPoint());
-        Assertions.assertEquals(0, Taylor.getTieBreakPoint());
+    void getMatchStatus_PointsFortyForty_Advantage() {
+        PlayerMatchScore first = createPlayer("Bob").getPlayerMatchScore();
+        PlayerMatchScore second = createPlayer("Sam").getPlayerMatchScore();
+        first.getCountPoint().setPoint(Points.FORTY);
+        second.getCountPoint().setPoint(Points.FORTY);
+        MatchStatus matchStatus = CheckMatchStatus.INSTANCE.getMatchStatus(first, second);
+        Assertions.assertEquals(MatchStatus.ADVANTAGE, matchStatus);
     }
-    //При счете в тайбрейке 6-7 тайбрейк продолжается
     @Test
-    public void continueTieBreak() {
-        Bob.setGame(6);
-        Bob.setTieBreakPoint(5);
-        Taylor.setGame(6);
-        Taylor.setTieBreakPoint(6);
-        calculation.wonPoint(Bob, Taylor);
-        calculation.wonPoint(Taylor, Bob);
-        Assertions.assertEquals(0, Bob.getSet());
-        Assertions.assertEquals(0, Taylor.getSet());
+    void getMatchStatus_GamesSixSix_TieBreak() {
+        PlayerMatchScore first = createPlayer("Bob").getPlayerMatchScore();
+        PlayerMatchScore second = createPlayer("Sam").getPlayerMatchScore();
+        first.getCountGame().setGame(6);
+        second.getCountGame().setGame(6);
+        MatchStatus matchStatus = CheckMatchStatus.INSTANCE.getMatchStatus(first, second);
+        Assertions.assertEquals(MatchStatus.TIE_BREAK, matchStatus);
     }
-    //При счете геймов 5-7 игрок выигрывает сет
     @Test
-    public void winTieBreak() {
-        Bob.setGame(6);
-        Bob.setTieBreakPoint(5);
-        Taylor.setGame(6);
-        Taylor.setTieBreakPoint(6);
-        calculation.wonPoint(Taylor, Bob);
-        Assertions.assertEquals(1, Taylor.getSet());
-        Assertions.assertEquals(0, Bob.getSet());
-    }
-    //Если игрок 1 выигрывает очко - он получает преимущество
-    @Test
-    public void playerAd() {
-        Bob.setPoint(Points.FORTY);
-        Taylor.setPoint(Points.FORTY);
-        calculation.wonPoint(Bob, Taylor);
-        Assertions.assertEquals("Ad", Bob.getPoint().getValue());
-    }
-    //Если игрок 1 имеет преимущество, а игрок 2 выигрывает очко - игрок 1 теряет преимущество
-    @Test
-    public void playerDropAd() {
-        Taylor.setPoint(Points.FORTY);
-        Bob.setPoint(Points.AD);
-        Bob.setAdvantage(true);
-        calculation.wonPoint(Taylor, Bob);
-        Assertions.assertEquals(Points.FORTY, Bob.getPoint());
-        Assertions.assertEquals(Points.FORTY, Taylor.getPoint() );
-    }
-    //Если игрок 1 имеет преимущество и выигрывает следующее очко - то он выигрывает и гейм
-    @Test
-    public void playerAdWinGame() {
-        Taylor.setPoint(Points.FORTY);
-        Bob.setPoint(Points.AD);
-        Bob.setAdvantage(true);
-        calculation.wonPoint(Bob, Taylor);
-        Assertions.assertEquals(1, Bob.getGame());
-        Assertions.assertEquals(0, Taylor.getGame());
+    void getMatchStatus_SetsTwoZero_END() {
+        PlayerMatchScore first = createPlayer("Bob").getPlayerMatchScore();
+        PlayerMatchScore second = createPlayer("Sam").getPlayerMatchScore();
+        first.getCountSet().setSet(2);
+        MatchStatus matchStatus = CheckMatchStatus.INSTANCE.getMatchStatus(first, second);
+        Assertions.assertEquals(MatchStatus.END, matchStatus);
     }
 
     @Test
-    public void paginationHibernate() {
-        Configuration configuration = new Configuration();
-        configuration.configure("hibernate.cfg.xml");
-        configuration.addAnnotatedClass(MatchRepository.class)
-                .addAnnotatedClass(Player.class);
-        SessionFactory sessionFactory = configuration.buildSessionFactory();
-        FinishedMatchesPersistenceService finishedMatchesPersistenceService = new FinishedMatchesPersistenceService();
-        PlayerRepository playerRepository = new PlayerRepository(sessionFactory);
-        MatchRepository matchRepository = new MatchRepository(sessionFactory);
-        playerRepository.addPlayerToH2();
-        matchRepository.addMatchToTableScoreBoard();
-        List<Match> matches = finishedMatchesPersistenceService.usePaginationHibernate(sessionFactory, 1,"");
-        for (Match match:matches) {
-            System.out.println(match);
+    void ongoingPointWon_PointsZeroZero_PointsFortyForty() {
+        PlayerMatchScore first = createPlayer("Bob").getPlayerMatchScore();
+        PlayerMatchScore second = createPlayer("Sam").getPlayerMatchScore();
+        MatchStatus ongoing = MatchStatus.ONGOING;
+        for (int i = 1; i <= 3; i++) {
+            //15...30...40
+            first.getCountPoint().wonPoint(ongoing, second);
+            second.getCountPoint().wonPoint(ongoing, second);
         }
-        System.out.println(finishedMatchesPersistenceService.quantityPages(sessionFactory, ""));
+        Assertions.assertEquals(Points.FORTY, first.getCountPoint().getPoint());
+        Assertions.assertEquals(Points.FORTY, second.getCountPoint().getPoint());
+    }
+    @Test
+    void tieBreakPointWon_PointsZeroZero_PointsSixSix() {
+        PlayerMatchScore first = createPlayer("Bob").getPlayerMatchScore();
+        PlayerMatchScore second = createPlayer("Sam").getPlayerMatchScore();
+        MatchStatus tieBreak = MatchStatus.TIE_BREAK;
+        for (int i = 1; i <= 6; i++) {
+            //1..2..3..
+            first.getCountPoint().wonPoint(tieBreak, second);
+            second.getCountPoint().wonPoint(tieBreak, second);
+        }
+        Assertions.assertEquals(6, first.getCountPoint().getTieBreakPoint());
+        Assertions.assertEquals(6, second.getCountPoint().getTieBreakPoint());
+    }
+    @Test
+    void advantagePointWon_PointsFortyForty_FortyAd() {
+        PlayerMatchScore first = createPlayer("Bob").getPlayerMatchScore();
+        PlayerMatchScore second = createPlayer("Sam").getPlayerMatchScore();
+        first.getCountPoint().setPoint(Points.FORTY);
+        second.getCountPoint().setPoint(Points.FORTY);
+        MatchStatus advantage = MatchStatus.ADVANTAGE;
+        //Ad:40
+        first.won(advantage, second);
+        Assertions.assertEquals(Points.AD, first.getCountPoint().getPoint());
+        Assertions.assertEquals(Points.FORTY, second.getCountPoint().getPoint());
+        //40:40
+        second.won(advantage, first);
+        Assertions.assertEquals(Points.FORTY, first.getCountPoint().getPoint());
+        Assertions.assertEquals(Points.FORTY, second.getCountPoint().getPoint());
+        //40:Ad
+        second.won(advantage, first);
+        Assertions.assertEquals(Points.FORTY, first.getCountPoint().getPoint());
+        Assertions.assertEquals(Points.AD, second.getCountPoint().getPoint());
+    }
+    @Test
+    void ongoingGameWon_PointsFortyForty_GamesOneZero() {
+        PlayerMatchScore first = createPlayer("Bob").getPlayerMatchScore();
+        PlayerMatchScore second = createPlayer("Sam").getPlayerMatchScore();
+        first.getCountPoint().setWonForty(true);
+        second.getCountPoint().setWonForty(true);
+        MatchStatus ongoing = MatchStatus.ONGOING;
+        first.getCountPoint().wonPoint(ongoing, second);
+        first.getCountGame().wonGame(ongoing, second);
+        Assertions.assertEquals(1, first.getCountGame().getGame());
+        Assertions.assertEquals(0, second.getCountGame().getGame());
+    }
+    @Test
+    void advantageGameWon_PointsAdForty_GamesOneZero() {
+        PlayerMatchScore first = createPlayer("Bob").getPlayerMatchScore();
+        PlayerMatchScore second = createPlayer("Sam").getPlayerMatchScore();
+        first.getCountPoint().setPoint(Points.AD);
+        second.getCountPoint().setPoint(Points.FORTY);
+        MatchStatus advantage = MatchStatus.ADVANTAGE;
+        first.getCountPoint().wonPoint(advantage, second);
+        first.getCountGame().wonGame(advantage, second);
+        Assertions.assertEquals(1, first.getCountGame().getGame());
+        Assertions.assertEquals(0, second.getCountGame().getGame());
+    }
+    @Test
+    void ongoingSetWonToDifference_GameFiveFive_SetsOneZero() {
+        PlayerMatchScore first = createPlayer("Bob").getPlayerMatchScore();
+        PlayerMatchScore second = createPlayer("Sam").getPlayerMatchScore();
+        first.getCountGame().setGame(5);
+        second.getCountGame().setGame(5);
+        MatchStatus ongoing = MatchStatus.ONGOING;
+        for (int i = 1; i <= 8; i++) {
+            //15...30...40...0 -> game++ -> 15...30...
+            first.won(ongoing, second);
+        }
+        Assertions.assertEquals(1, first.getCountSet().getSet());
+        Assertions.assertEquals(0, second.getCountSet().getSet());
+    }
+    @Test
+    void tieBreakSetWon_GameSixSix_SetsOneZero() {
+        PlayerMatchScore first = createPlayer("Bob").getPlayerMatchScore();
+        PlayerMatchScore second = createPlayer("Sam").getPlayerMatchScore();
+        first.getCountGame().setGame(6);
+        second.getCountGame().setGame(6);
+        MatchStatus tieBreak = MatchStatus.TIE_BREAK;
+        for (int i = 1; i <= 7; i++) {
+            //1...2...3...
+            first.getCountPoint().wonPoint(tieBreak, second);
+            first.getCountGame().wonGame(tieBreak, second);
+            first.getCountSet().wonSet();
+        }
+        Assertions.assertEquals(1, first.getCountSet().getSet());
+        Assertions.assertEquals(0, second.getCountSet().getSet());
+    }
+    @Test
+    void matchWonForSets_SetsOneOne_SetsTwoOne() {
+        PlayerMatchScore first = createPlayer("Bob").getPlayerMatchScore();
+        PlayerMatchScore second = createPlayer("Sam").getPlayerMatchScore();
+        first.getCountSet().setSet(1);
+        second.getCountSet().setSet(1);;
+        MatchStatus matchStatus = MatchStatus.ONGOING;
+        for (int i = 1; i <= 24; i++) {
+            //first set = 2
+            first.won(matchStatus, second);
+        }
+        Assertions.assertEquals(2, first.getCountSet().getSet());
+        Assertions.assertEquals(1, second.getCountSet().getSet());
     }
 }

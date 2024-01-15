@@ -1,2 +1,0 @@
-Jan 11, 2024 4:37:00 PM com.dragunov.tennisscoreboard.servlets.NewMatchController doPost
-WARNING: Player name is invalid
