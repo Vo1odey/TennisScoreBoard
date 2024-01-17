@@ -4,10 +4,9 @@ import com.dragunov.tennisscoreboard.services.CheckMatchStatus;
 import com.dragunov.tennisscoreboard.services.matchscore.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
-
 public class CalculationTest {
     Player createPlayer(String name) {
-        PlayerMatchScore playerMatchScore = new PlayerMatchScore();
+        com.dragunov.tennisscoreboard.services.matchscore.PlayerMatchScore playerMatchScore = new PlayerMatchScore();
         return new Player(name, playerMatchScore);
     }
     @Test

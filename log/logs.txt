@@ -1,4 +1,4 @@
-Jan 15, 2024 4:43:41 PM com.dragunov.tennisscoreboard.repositories.PlayerRepository getPlayerOrCreateHim
+Jan 17, 2024 11:29:48 AM com.dragunov.tennisscoreboard.repositories.PlayerRepository getPlayerOrCreateHim
 WARNING: get player from database
-Jan 15, 2024 4:43:41 PM com.dragunov.tennisscoreboard.repositories.PlayerRepository getPlayerOrCreateHim
-WARNING: create a player and saves this in database
+Jan 17, 2024 11:29:48 AM com.dragunov.tennisscoreboard.repositories.PlayerRepository getPlayerOrCreateHim
+WARNING: get player from database
