@@ -53,32 +53,24 @@ public class MatchRepository {
         }
     }
 
-    public List<Match> usePaginationHibernate(int page, String filter) {
+    public List<Match> PaginationCriteria(int page, String filter) {
         try (Session session = sessionFactory.openSession()) {
             int pageSize = 5;
             int firstResult;
-            if (page == 1) {
-                firstResult = 0;
-            } else {
-                firstResult = pageSize * (page - 1);
-            }
+            firstResult = page == 1 ? 0 : pageSize * (page - 1);
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
             CriteriaQuery<Match> criteriaQuery = criteriaBuilder.createQuery(Match.class);
             Root<Match> root = criteriaQuery.from(Match.class);
-            // Создаем предикаты для фильтрации по имени игрока
             Join<Match, Player> player1Join = root.join("Player1");
             Join<Match, Player> player2Join = root.join("Player2");
             Predicate player1NamePredicate = criteriaBuilder.like(player1Join.get("name"), "%" + filter + "%");
             Predicate player2NamePredicate = criteriaBuilder.like(player2Join.get("name"), "%" + filter + "%");
-            // Создаем предикат, который объединяет предикаты по имени игрока
             Predicate playerNamePredicate = criteriaBuilder.or(player1NamePredicate, player2NamePredicate);
-            // Добавляем предикат в запрос
             criteriaQuery.where(playerNamePredicate);
             CriteriaQuery<Match> selectQuery = criteriaQuery.select(root);
             TypedQuery<Match> typedQuery = session.createQuery(selectQuery);
             typedQuery.setFirstResult(firstResult);
             typedQuery.setMaxResults(pageSize);
-
             return typedQuery.getResultList();
         }
     }
@@ -87,19 +79,15 @@ public class MatchRepository {
             CriteriaBuilder criteriaBuilder = session.getCriteriaBuilder();
             CriteriaQuery<Long> countQuery = criteriaBuilder.createQuery(Long.class);
             Root<Match> root = countQuery.from(Match.class);
-            // Создаем предикаты для фильтрации по имени игрока
             Join<Match, Player> player1Join = root.join("Player1");
             Join<Match, Player> player2Join = root.join("Player2");
             Predicate player1NamePredicate = criteriaBuilder.like(player1Join.get("name"), "%" + filter + "%");
             Predicate player2NamePredicate = criteriaBuilder.like(player2Join.get("name"), "%" + filter + "%");
-            // Создаем предикат, который объединяет предикаты по имени игрока
             Predicate playerNamePredicate = criteriaBuilder.or(player1NamePredicate, player2NamePredicate);
-            // Добавляем предикат в запрос
             countQuery.where(playerNamePredicate);
             countQuery.select(criteriaBuilder.count(root));
             Long count = session.createQuery(countQuery).getSingleResult();
             int pageSize = 5;
-
             return (int) Math.ceil((double) count / pageSize);
         }
     }

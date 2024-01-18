@@ -1,9 +1,13 @@
+
+
 import com.dragunov.tennisscoreboard.models.Player;
 import com.dragunov.tennisscoreboard.services.CheckMatchStatus;
 
-import com.dragunov.tennisscoreboard.services.matchscore.*;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+
+import com.dragunov.tennisscoreboard.services.matchscore.*;
+
 public class CalculationTest {
     Player createPlayer(String name) {
         com.dragunov.tennisscoreboard.services.matchscore.PlayerMatchScore playerMatchScore = new PlayerMatchScore();

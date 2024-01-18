@@ -29,7 +29,7 @@ public class SavedMatchesController extends HttpServlet {
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         String filter = req.getParameter("filter_by_player_name");
         int page = Integer.parseInt(req.getParameter("page"));
-        List<Match> matchPage = matchRepository.usePaginationHibernate(page, filter);
+        List<Match> matchPage = matchRepository.PaginationCriteria(page, filter);
         int quantityOfPages = matchRepository.quantityPages(filter);
         req.setAttribute("quantityOfPages", quantityOfPages);
         req.setAttribute("filter", filter);

@@ -34,7 +34,7 @@ public class NewMatchController extends HttpServlet {
     }
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.getRequestDispatcher("NewMatch.jsp").forward(req, resp);
+        req.getRequestDispatcher("/NewMatch.jsp").forward(req, resp);
     }
     @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws IOException {
@@ -45,7 +45,7 @@ public class NewMatchController extends HttpServlet {
             Player player2 = playerRepository.getPlayerOrCreateHim(secondPlayerName);
             final UUID uuid = UUID.randomUUID();
             ongoingMatchesService.recordCurrentMatch(new Match(player1, player2), uuid);
-            resp.sendRedirect("/match-score?uuid=" + uuid);
+            resp.sendRedirect(req.getContextPath() + "/match-score?uuid=" + uuid);
         } catch (InvalidPlayerNameException e) {
             resp.setStatus(HttpServletResponse.SC_BAD_REQUEST);
             resp.getWriter().write(String.valueOf(e));

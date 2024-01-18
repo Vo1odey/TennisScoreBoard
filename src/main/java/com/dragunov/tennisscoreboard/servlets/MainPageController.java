@@ -2,7 +2,6 @@ package com.dragunov.tennisscoreboard.servlets;
 
 import com.dragunov.tennisscoreboard.repositories.MatchRepository;
 import com.dragunov.tennisscoreboard.repositories.PlayerRepository;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -25,7 +24,6 @@ public class MainPageController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        RequestDispatcher dispatcher = req.getRequestDispatcher("MainPage.jsp");
-        dispatcher.forward(req, resp);
+        req.getRequestDispatcher("/MainPage.jsp").forward(req, resp);
     }
 }

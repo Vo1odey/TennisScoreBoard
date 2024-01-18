@@ -19,6 +19,6 @@ public enum Points {
 
     public Points next(Points point){
         Points[] values = Points.values();
-        return (point.ordinal() < 3) ? values[point.ordinal()+1] : values[0]; //0, 15, 30, 40, GAME...
+        return (point.ordinal() < 3) ? values[point.ordinal()+1] : values[0];
     }
 }

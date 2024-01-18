@@ -7,8 +7,7 @@
       href="https://fonts.googleapis.com/css2?family=Roboto&display=swap"
       rel="stylesheet"
     />
-    <link rel="stylesheet" href="/StyleMainPage.css" />
-
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/StyleMainPage.css" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>New Match</title>
   </head>

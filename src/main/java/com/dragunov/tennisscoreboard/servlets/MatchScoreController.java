@@ -10,7 +10,6 @@ import com.dragunov.tennisscoreboard.services.FinishedMatchesPersistenceService;
 import com.dragunov.tennisscoreboard.services.OngoingMatchesService;
 import com.dragunov.tennisscoreboard.services.matchscore.MatchStatus;
 import com.dragunov.tennisscoreboard.utils.MyLogger;
-import jakarta.servlet.RequestDispatcher;
 import jakarta.servlet.ServletConfig;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
@@ -79,7 +78,7 @@ public class MatchScoreController extends HttpServlet {
             finishedMatchesPersistenceService.saveFinishedMatch(matchRepository, ongoingMatchesService, uuid);
             req.getRequestDispatcher("/Winner.jsp").forward(req, resp);
         } else {
-            resp.sendRedirect("/match-score?uuid=" + uuid);
+            resp.sendRedirect(req.getContextPath() + "/match-score?uuid=" + uuid);
         }
     }
     private UUID uuidCheck(UUID uuid) throws MatchNotFoundException {
